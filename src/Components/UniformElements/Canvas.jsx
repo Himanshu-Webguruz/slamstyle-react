@@ -82,8 +82,16 @@ export default function Canvas({
   })
 
   const [numPosition, setNumPosition] = useState({
-    left: 50,
-    top: 50,
+    left: 200,
+    top: 70,
+    scaleX: 3,
+    scaleY: 3,
+    angle: 0,
+  })
+
+  const[backNumPosition, setBackNumPosition] = useState({
+    left: 130,
+    top: 150,
     scaleX: 3,
     scaleY: 3,
     angle: 0,
@@ -234,8 +242,8 @@ export default function Canvas({
                         selectedShoulderImage.backassociate
                       }
                       numVal={numVal}
-                      numPosition={numPosition}
-                      setNumPosition={setNumPosition}
+                      numPosition={backNumPosition}
+                      setNumPosition={setBackNumPosition}
                     />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
