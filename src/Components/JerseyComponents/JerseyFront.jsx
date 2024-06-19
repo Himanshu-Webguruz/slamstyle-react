@@ -23,7 +23,7 @@ const JerseyFront = forwardRef(
       setTextPosition,
       numVal,
       numPosition,
-      setNumPosition
+      setNumPosition,
     },
     ref
   ) => {
@@ -35,7 +35,7 @@ const JerseyFront = forwardRef(
 
     // this is defined here bcz we want it dynamically inside condition and it will be used as base image
     let shirtImage = ``;
-   
+
     // which jersey is selected from jersey list
     const jersyNum = localStorage.getItem("selectedJersy");
 
@@ -253,20 +253,6 @@ const JerseyFront = forwardRef(
       drawImages(context);
     }, [selectedNeckImage, selectedShoulderImage, shapeColors]);
 
-    // this useEffect is for generating the selected image in our jersey with fabric control points and
-    // draggable functionality
-    // useEffect(() => {
-    //   const fabricCanvas = new fabric.Canvas(fabricCanvasRef.current, {
-    //     width: 300,
-    //     height: 600,
-    //   });
-
-    //   // The dispose method is used to clean up the Fabric.js canvas
-    //   return () => {
-    //     fabricCanvas.dispose();
-    //   };
-    // }, [selectedImage]);
-
     useEffect(() => {
       const fabricCanvas = new fabric.Canvas(fabricCanvasRef1.current, {
         width: 300,
@@ -330,17 +316,11 @@ const JerseyFront = forwardRef(
         const text = new fabric.Textbox(numVal.toString(), {
           left: numPosition.left,
           top: numPosition.top,
-          hasControls: false,
+          hasControls: true,
           fontSize: 25,
-          editable: false // adjust the font size as needed
-          // fontFamily: 'Arial', // choose an appropriate font
-          // fill: 'black', // text color
-          // borderColor: 'black', // control points color
-          // cornerColor: 'black',
-          // transparentCorners: false,
-          // cornerSize: 10, 
+          editable: false, // adjust the font size as needed
         });
-    
+
         fabricCanvas.add(text);
         fabricCanvas.setActiveObject(text);
 
@@ -354,7 +334,7 @@ const JerseyFront = forwardRef(
       return () => {
         fabricCanvas.dispose();
       };
-    }, [canvasTemp, selectedImage,numVal]);
+    }, [canvasTemp, selectedImage, numVal]);
 
     // using this we allow our parent i.e canvas to have excess to this means parent is getting the whole final
     // image
@@ -373,19 +353,16 @@ const JerseyFront = forwardRef(
 
         combinedContext.drawImage(
           fabricCanvas,
-          imagePosition.left,
-          imagePosition.top,
-          imagePosition.scaleX * mainCanvas.width,
-          imagePosition.scaleY * mainCanvas.height
+          0,0,
         );
         const dataURL = combinedCanvas.toDataURL("image/png");
-       
+
         return dataURL;
       },
     }));
 
     return (
-      <div style={{ position: "relative", width: 300, height: 600 }}>
+      <div style={{ position: "relative", width: "100%", height: 600 }}>
         <canvas
           ref={canvasRef}
           width={300}
@@ -409,7 +386,6 @@ const JerseyFront = forwardRef(
             zIndex: 2,
           }}
         />
-        
       </div>
     );
   }

@@ -3,7 +3,7 @@ import allColors from "../../utils/colors.js";
 import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
 
 // onColorSelect is for passing the selected color and selectedNeckId is for getting the selectedNeck from neck options 
-export default function Color({ onColorSelect, selectedNeckId ,shapeColor}) {
+export default function Color({ onColorSelect, selectedNeckId ,shapeColor,isOpen,onAccordionToggle}) {
 
   // getting the selected Jersey from the localstorage
   const selectedJersy = localStorage.getItem("selectedJersy");
@@ -27,10 +27,8 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor}) {
   // state and function for showing and hiding color tabs
   const [showAnswer, setShowAnswer] = useState(false);
 
-  const handleTab = (event) => {
-    if (event === "color-uniform-layer") {
-      setShowAnswer(!showAnswer);
-    }
+  const handleTab = () => {
+    onAccordionToggle();
   };
 
   // passing the selected color to parent as a callback function and updating recent colors
@@ -88,16 +86,14 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor}) {
           {/* Show recent colors */}
           {showColor === colorKey && (
             <>
-              <div style={{ display: "flex", marginBottom: "10px" }}>
+            <div className="merge-two-layers">
+              <div style={{ display: "flex" }} className="recent-inputs">
                 {recentColors.map((color, index) => (
                   <input
                     key={index}
                     type="button"
                     style={{
                       backgroundColor: color,
-                      height: "15px",
-                      width: "15px",
-                      marginRight: "5px",
                     }}
                     onClick={() => handleColor(color, colorKey)}
                   />
@@ -118,6 +114,7 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor}) {
                   />
                 ))}
               </div>
+              </div>
             </>
           )}
         </div>
@@ -128,10 +125,19 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor}) {
 
   return (
     <>
-      <li className={`color-uniform ${showAnswer ? "active" : ""}`}>
-        <h3 onClick={() => handleTab("color-uniform-layer")}>Color Uniform</h3>
+      <li className={`color-uniform ${isOpen ? "active" : ""}`}>
+        <h3 onClick={handleTab} className="forDesktop">Color Uniform</h3>
+        <h3 onClick={() => handleTab("color-uniform-layer")} className="forMob"><svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="300.000000pt" height="300.000000pt" viewBox="0 0 300.000000 300.000000" preserveAspectRatio="xMidYMid meet">
+        <metadata>
+        Created by potrace 1.10, written by Peter Selinger 2001-2011
+        </metadata>
+        <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" fill="#ffffff" stroke="none">
+        <path d="M950 2650 c-91 -3 -172 -9 -180 -15 -40 -26 -620 -624 -629 -648 -15 -40 -14 -91 4 -135 10 -24 89 -110 218 -240 187 -188 252 -242 292 -242 13 0 15 -54 15 -470 0 -453 1 -472 20 -510 11 -22 39 -52 62 -67 l42 -28 698 -3 c669 -2 701 -2 742 17 54 24 92 73 106 137 7 33 10 209 8 507 -3 451 -3 457 17 457 11 0 35 9 53 20 42 26 403 385 437 435 29 43 34 115 11 168 -15 36 -554 581 -596 602 -20 10 -77 14 -207 16 -162 1 -183 -1 -219 -19 -99 -51 -181 -67 -334 -67 -158 0 -223 12 -335 63 -59 27 -62 27 -225 22z m208 -59 c20 -10 71 -30 112 -42 66 -21 95 -24 235 -24 140 0 169 3 235 24 41 12 92 32 112 42 32 16 60 19 204 19 128 0 173 -3 198 -15 18 -9 154 -138 303 -288 368 -369 364 -328 65 -629 -137 -139 -216 -211 -238 -218 -19 -6 -45 -25 -59 -41 l-25 -31 0 -474 c0 -523 1 -510 -62 -556 l-33 -23 -700 0 -700 0 -33 23 c-63 46 -62 36 -62 527 0 507 1 500 -72 533 -64 29 -453 425 -463 470 -17 81 -13 86 293 397 158 159 300 298 317 308 45 26 320 25 373 -2z"/>
+        </g>
+        </svg>Color</h3>
+
         {/* if showAnswer is true means tab is open then */}
-        {showAnswer && (
+        {isOpen && (
           <div className="answer-wrap">
             <div className="answer">
               <div className="customize-prod-list scrollbar">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import step1Image from '../assets/images/tab-product-icon.png'
-import step2Image from '../assets/images/customize-uniform-icon.png'
-import step3Image from '../assets/images/tab-product-icon.png'
+import img1 from "../assets/images/tab-product-icon.png"
+import img2 from "../assets/images/customize-uniform-icon.png"
+import img3 from "../assets/images/tab-product-icon.png"
 export const Steps = ({ gettingdata }) => {
   const [activeState, setActiveState] = useState(1);
 
@@ -21,7 +21,7 @@ export const Steps = ({ gettingdata }) => {
             <div className="step-tab">
               <div className="step-tab-icon">
                 <figure>
-                  <img src={step1Image} alt="" />
+                  <img src={img1} alt="" />
                 </figure>
               </div>
               <h3 className="step-tab-name">Select Your Uniform</h3>
@@ -37,8 +37,8 @@ export const Steps = ({ gettingdata }) => {
               <div className="step-tab-icon">
                 <figure>
                   <img
-                    src={step2Image}
-                    alt="Step2"
+                    src= {img2}
+                    alt=""
                   />
                 </figure>
               </div>
@@ -54,7 +54,7 @@ export const Steps = ({ gettingdata }) => {
             <div className="step-tab">
               <div className="step-tab-icon">
                 <figure>
-                  <img src={step3Image} alt="" />
+                  <img src={img3} alt="" />
                 </figure>
               </div>
               <h3 className="step-tab-name">Finalize The Uniform</h3>

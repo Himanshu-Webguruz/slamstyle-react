@@ -265,7 +265,7 @@ const handleSaveAsPDF = async () => {
                   onClick={handleSaveAsPDF}
                   className="btn-design save-uniform"
                 >
-                  Save Uniform
+                  Save Uniform and move to setp 3
                 </button>
                 <div style={{ position: "absolute", top: -9999, left: -9999 }}>
           <JerseyFront

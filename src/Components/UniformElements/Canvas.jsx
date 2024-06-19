@@ -76,8 +76,8 @@ export default function Canvas({
   const [textPosition, setTextPosition] = useState({
     left: 50,
     top: 50,
-    scaleX: 3,
-    scaleY: 3,
+    scaleX: 1,
+    scaleY: 2,
     angle: 0,
   })
 
@@ -147,6 +147,19 @@ export default function Canvas({
     }
   }, [selectedImage]);
 
+  useEffect(()=>{
+    if(canvasTemp && value !== 0){
+      setValue(0)
+    }
+
+  },[canvasTemp])
+
+  useEffect(()=>{
+    if(numVal && value !== 0){
+      setValue(0)
+    }
+  }, [numVal])
+
   // creating ref for front,back,left and right
   const jerseyFrontRef = useRef(null);
   const jerseyBackRef = useRef(null);
@@ -189,6 +202,7 @@ export default function Canvas({
       }
     }
 
+   
     // Adding watermark to each page
     const pages = pdf.internal.getNumberOfPages();
     for (let i = 1; i <= pages; i++) {
@@ -202,6 +216,7 @@ export default function Canvas({
     }
     // for saving the pdf with specified name
     pdf.save("jersey_design.pdf");
+    
   };
 
   return (
@@ -242,8 +257,8 @@ export default function Canvas({
                         selectedShoulderImage.backassociate
                       }
                       numVal={numVal}
-                      numPosition={backNumPosition}
-                      setNumPosition={setBackNumPosition}
+                      backNumPosition={backNumPosition}
+                      setBackNumPosition={setBackNumPosition}
                     />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
@@ -339,11 +354,18 @@ export default function Canvas({
                   onClick={()=>{ console.log("Button clicked");handleSaveAsPDF()}}
                   className="btn-design save-uniform"
                 >
-                  Save Uniform
+                  Save Uniform and move to step 3
                 </button>
                 <div style={{ position: "absolute", top: -9999, left: -9999 }}>
-                  <JerseyFront
-                    ref={jerseyFrontRef}
+                 
+                  <JerseyBack
+                  ref={jerseyBackRef}
+                    shapeColors={shapeColor}
+                    selectedShoulderImage={selectedShoulderImage.backassociate}
+                    backNumPosition={backNumPosition}
+                      setBackNumPosition={setBackNumPosition}
+                  />
+                   <JerseyFront
                     shapeColors={shapeColor}
                     selectedNeckImage={selectedNeckImage}
                     selectedShoulderImage={selectedShoulderImage.frontassociate}
@@ -351,18 +373,13 @@ export default function Canvas({
                     imagePosition={imagePosition}
                     setImagePosition={setImagePosition}
                   />
-                  <JerseyBack
-                    ref={jerseyBackRef}
-                    shapeColors={shapeColor}
-                    selectedShoulderImage={selectedShoulderImage.backassociate}
-                  />
                   <JerseyLeft
-                    ref={jerseyLeftRef}
+                  ref={jerseyLeftRef}
                     shapeColors={shapeColor}
                     selectedvorNovImg={selectedCutorNoCut.left}
                   />
                   <JerseyRight
-                    ref={jerseyRightRef}
+                  ref={jerseyRightRef}
                     shapeColors={shapeColor}
                     selectedvorNovImg={selectedCutorNoCut.right}
                   />

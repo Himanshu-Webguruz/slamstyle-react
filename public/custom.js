@@ -629,10 +629,13 @@ window.svgpathfunc = async function (
     ].join(" ");
     svgFront.setAttribute("viewBox", viewBoxFront);
 
+   
+
     
 
     var canvasTemp = "data:image/svg+xml;base64," + btoa(svgFront.outerHTML);
     window.canvasTemp = canvasTemp
+    
     window.dispatchEvent(new Event("canvasTemp"));
 
     

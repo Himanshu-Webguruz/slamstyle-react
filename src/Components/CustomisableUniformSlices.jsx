@@ -34,7 +34,12 @@ export default function CustomisableUniformSlices() {
       block: "start",
     });
   };
+  const [openAccordion, setOpenAccordion] = useState(null);
 
+  // Function to handle accordion toggle
+  const handleAccordionToggle = (accordionName) => {
+    setOpenAccordion(openAccordion === accordionName ? null : accordionName);
+  };
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // state for selected Neck Options
   const [selectedNeckImage, setSelectedNeckImage] = useState({
@@ -122,22 +127,10 @@ export default function CustomisableUniformSlices() {
 
   return (
     <>
+    
       <Index />
       <div id="" className="customize-uniform">
-        <div className="header-sec">
-          <h3>
-            Customize Your Uniform
-            <a
-              style={{ float: "right" }}
-              className="btn-design fos"
-              onClick={handleFitOnScreen}
-            >
-              Fit on Screen
-            </a>
-          </h3>
-          <span className="open-option">&#9776;</span>
-        </div>
-        <div
+      <div
           id="customize-uniform_here"
           className="customize-layout flex-row fosCls"
           ref={fitOnScreenRef} // Add the ref here
@@ -145,17 +138,32 @@ export default function CustomisableUniformSlices() {
         >
           <div className="customize-option">
             <ul className="accordion-list list-unstyled">
-              <Neck onNeckSelect={handleNeckImageSelect} />
-              <Shoulder onShoulderSelect={handleShoulderImageSelect} />
-              <Vtype onImageSelect={handleVorNoVImageSelect} />
+            <Neck
+                onNeckSelect={handleNeckImageSelect}
+                isOpen={openAccordion === "neck-style-layer"}
+                onAccordionToggle={() => handleAccordionToggle("neck-style-layer")}
+              />
+              <Shoulder
+                onShoulderSelect={handleShoulderImageSelect}
+                isOpen={openAccordion === "shoulder-type-layer"}
+                onAccordionToggle={() => handleAccordionToggle("shoulder-type-layer")}
+              />
+              <Vtype onImageSelect={handleVorNoVImageSelect}
+              isOpen={openAccordion==="choose-v-layer"} onAccordionToggle={()=> handleAccordionToggle("choose-v-layer")} />
               <Color
                 onColorSelect={handleColorSelect}
                 selectedNeckId={selectedNeckImage.NeckId}
                 shapeColor={shapeColor}
+                isOpen={openAccordion==="color-uniform-layer"} onAccordionToggle={()=> handleAccordionToggle("color-uniform-layer")}
               />
-              <AddText onCanvasTemp={handleCanvasTemp} getNumValue={handleGetNumValue}/>
+              <AddText onCanvasTemp={handleCanvasTemp} getNumValue={handleGetNumValue}
+              isOpen={openAccordion==="text-style-layer"} onAccordionToggle={()=>handleAccordionToggle("text-style-layer")}
+              />
 
-              <AddImages gettingImages={handleGetImages} />
+              <AddImages gettingImages={handleGetImages}
+              isOpen={openAccordion==="add-images-layer"}
+              onAccordionToggle={()=>handleAccordionToggle("add-images-layer")}
+              />
             </ul>
           </div>
           <Canvas

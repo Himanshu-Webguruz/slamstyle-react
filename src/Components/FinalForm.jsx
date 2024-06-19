@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const FinalForm = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +17,19 @@ const FinalForm = () => {
 
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    // Load form data from localStorage if available
+    const savedFormData = localStorage.getItem("formData");
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save form data to localStorage whenever it changes
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,17 +40,23 @@ const FinalForm = () => {
     // Regular expression for validating email format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!formData.contactname) formErrors.contactname = "Contact Name is required.";
+    if (!formData.contactname)
+      formErrors.contactname = "Contact Name is required.";
     if (!formData.emailaddress) {
       formErrors.emailaddress = "Email Address is required.";
     } else if (!emailPattern.test(formData.emailaddress)) {
       formErrors.emailaddress = "Invalid Email Address format.";
     }
-    if (!formData.pcontact) formErrors.pcontact = "Primary Contact Number is required.";
-    if (!formData.pcalltime) formErrors.pcalltime = "Preferred time to call is required.";
+    if (!formData.pcontact)
+      formErrors.pcontact = "Primary Contact Number is required.";
+    if (!formData.pcalltime)
+      formErrors.pcalltime = "Preferred time to call is required.";
     if (!formData.postcode) formErrors.postcode = "Postcode is required.";
-    if (!formData.uniform_number) formErrors.uniform_number = "Number of uniforms required is required.";
-    if (!formData.date_uniform) formErrors.date_uniform = "Date by which uniforms are required is required.";
+    if (!formData.uniform_number)
+      formErrors.uniform_number = "Number of uniforms required is required.";
+    if (!formData.date_uniform)
+      formErrors.date_uniform =
+        "Date by which uniforms are required is required.";
     if (!formData.comments) formErrors.comments = "Comments are required.";
 
     setErrors(formErrors);
@@ -46,8 +67,52 @@ const FinalForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      document.getElementById("leadForm").submit();
+      generatePDF();
+      // Clear localStorage after successful form submission
+      localStorage.removeItem("formData");
     }
+  };
+
+  const generatePDF = () => {
+    const pdf = new jsPDF();
+
+    pdf.setFontSize(16);
+    pdf.setFont('helvetica', 'bold');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const textWidth = pdf.getStringUnitWidth('Contact Information') * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+    const x = (pageWidth - textWidth) / 2;
+    pdf.text('Contact Information', x, 16);
+
+    // Draw a line under the heading
+    const lineX = 14;
+    const lineY = 18;
+    const lineWidth = pageWidth - 28;
+    pdf.setLineWidth(0.5);
+    pdf.line(lineX, lineY, lineX + lineWidth, lineY);
+
+    pdf.autoTable({
+      startY: 22,
+      head: [],
+      body: [
+        [{ content: 'Contact Name:', styles: { fontStyle: 'bold' } }, formData.contactname, { content: 'Email Address:', styles: { fontStyle: 'bold' } }, formData.emailaddress],
+        [{ content: 'Primary Contact Number:', styles: { fontStyle: 'bold' } }, formData.pcontact, { content: 'Secondary Contact Number:', styles: { fontStyle: 'bold' } }, formData.scontact],
+        [{ content: 'Preferred time to call:', styles: { fontStyle: 'bold' } }, formData.pcalltime, { content: 'Postcode:', styles: { fontStyle: 'bold' } }, formData.postcode],
+        [{ content: 'Number of uniforms required:', styles: { fontStyle: 'bold' } }, formData.uniform_number, { content: 'Date by which uniforms are required:', styles: { fontStyle: 'bold' } }, formData.date_uniform],
+        [{ content: 'Comments:', styles: { fontStyle: 'bold' } }, formData.comments, '', '']
+      ],
+      theme: 'plain',
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [255, 255, 255] },
+      bodyStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0] },
+      columnStyles: {
+        0: { cellWidth: 40 },
+        1: { cellWidth: 60 },
+        2: { cellWidth: 50 },
+        3: { cellWidth: 70 }
+      },
+    });
+
+    pdf.save("form-data.pdf");
   };
 
   return (
@@ -91,7 +156,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.contactname && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.contactname}
                     </span>
                   )}
@@ -108,7 +180,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.emailaddress && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.emailaddress}
                     </span>
                   )}
@@ -127,7 +206,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.pcontact && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.pcontact}
                     </span>
                   )}
@@ -158,12 +244,20 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.pcalltime && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.pcalltime}
                     </span>
                   )}
                 </div>
-              </div>
+              </div
+>
               <div className="flex-col">
                 <div className="form-group">
                   <input
@@ -175,7 +269,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.postcode && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.postcode}
                     </span>
                   )}
@@ -195,7 +296,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.uniform_number && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.uniform_number}
                     </span>
                   )}
@@ -213,7 +321,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   />
                   {errors.date_uniform && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.date_uniform}
                     </span>
                   )}
@@ -233,7 +348,14 @@ const FinalForm = () => {
                     onChange={handleChange}
                   ></textarea>
                   {errors.comments && (
-                    <span className="error" style={{ float: 'left', fontSize: '14px', padding: '10px 0px 10px 0px' }}>
+                    <span
+                      className="error"
+                      style={{
+                        float: "left",
+                        fontSize: "14px",
+                        padding: "10px 0px 10px 0px",
+                      }}
+                    >
                       {errors.comments}
                     </span>
                   )}
@@ -251,6 +373,6 @@ const FinalForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default FinalForm;
