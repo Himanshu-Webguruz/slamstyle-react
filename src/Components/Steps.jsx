@@ -25,6 +25,7 @@ export const Steps = ({ gettingdata }) => {
                 </figure>
               </div>
               <h3 className="step-tab-name">Select Your Uniform</h3>
+              <h3 className="step-tab-name-mob">Select</h3>
             </div>
           </a>
         </li>
@@ -43,6 +44,7 @@ export const Steps = ({ gettingdata }) => {
                 </figure>
               </div>
               <h3 className="step-tab-name">Customize Your Uniform</h3>
+              <h3 className="step-tab-name-mob">Customize</h3>
             </div>
           </a>
         </li>
@@ -58,6 +60,7 @@ export const Steps = ({ gettingdata }) => {
                 </figure>
               </div>
               <h3 className="step-tab-name">Finalize The Uniform</h3>
+              <h3 className="step-tab-name-mob">Finalize</h3>
             </div>
           </a>
         </li>

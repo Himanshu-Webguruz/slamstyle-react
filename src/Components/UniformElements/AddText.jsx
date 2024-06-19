@@ -85,8 +85,6 @@ const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
     "half-asleep-arc",
     "inverse-vertical",
     "Straight",
-    "gravity",
-    "trajectory",
     "san-diego",
     "breathing-in",
   ];
