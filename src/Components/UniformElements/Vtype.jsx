@@ -14,6 +14,13 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
   const handleCutorNoCut = (type) => {
     onImageSelect(type);
     setCutType(type);
+
+    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
   };
 
   return (

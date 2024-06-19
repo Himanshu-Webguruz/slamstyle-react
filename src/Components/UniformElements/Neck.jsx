@@ -17,6 +17,13 @@ export default function Neck({ onNeckSelect, isOpen, onAccordionToggle  }) {
   const handleNeckImageClick = (NeckData) => {
     onNeckSelect(NeckData);
     setSelectedNeckId(NeckData.NeckId)
+
+    const isMobileView = window.innerWidth <= 990; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
   };
 
   return (

@@ -17,12 +17,26 @@ export default function AddImages({ gettingImages, isOpen, onAccordionToggle }) 
       setImageName(file.name);
       gettingImages(URL.createObjectURL(file));
     }
+
+    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
   };
 
   const handleReset = () => {
     gettingImages("");
     setImageName("");
     document.getElementById("browse-image").value = null;
+
+    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
   };
 
   return (

@@ -12,7 +12,7 @@ export default function Shoulder({ onShoulderSelect, isOpen, onAccordionToggle  
   const handleShoulderImageClick = (shoulderImg, id) => {
     onShoulderSelect(shoulderImg);
     setSelectedShoulder(id);
-    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+    const isMobileView = window.innerWidth <= 990; // Change the breakpoint value as needed
 
   // Call onAccordionToggle only if it's in mobile view
   if (isMobileView) {
