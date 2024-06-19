@@ -25,7 +25,7 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor,isOpen
   };
 
   // state and function for showing and hiding color tabs
-  const [showAnswer, setShowAnswer] = useState(false);
+  
 
   const handleTab = () => {
     onAccordionToggle();
@@ -34,6 +34,13 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor,isOpen
   // passing the selected color to parent as a callback function and updating recent colors
   const handleColor = (color, area) => {
     onColorSelect(color, area);
+
+    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
 
     // Update the recent colors
     setRecentColors((prevColors) => {

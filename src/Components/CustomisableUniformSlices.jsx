@@ -25,15 +25,7 @@ export default function CustomisableUniformSlices() {
   const noVLeftSide = `assets/jerseys/${jersyNum}/slicings/crew_noV_leftside.png`;
   const noVRightSide = `assets/jerseys/${jersyNum}/slicings/crew_noV_rightside.png`;
 
-  const fitOnScreenRef = useRef(null);
-
-  // Scroll to the content when Fit on Screen is clicked
-  const handleFitOnScreen = () => {
-    fitOnScreenRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+ 
   const [openAccordion, setOpenAccordion] = useState(null);
 
   // Function to handle accordion toggle
@@ -133,8 +125,6 @@ export default function CustomisableUniformSlices() {
       <div
           id="customize-uniform_here"
           className="customize-layout flex-row fosCls"
-          ref={fitOnScreenRef} // Add the ref here
-          style={{ position: "sticky", top: 0, zIndex: 10 }} // Make it sticky
         >
           <div className="customize-option">
             <ul className="accordion-list list-unstyled">

@@ -362,7 +362,7 @@ const JerseyFront = forwardRef(
     }));
 
     return (
-      <div style={{ position: "relative", width: "100%", height: 600 }}>
+      <div style={{ position: "relative", width: 300, height: 600 }}>
         <canvas
           ref={canvasRef}
           width={300}

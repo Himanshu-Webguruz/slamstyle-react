@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-// imported images becuase loop was not functioning as expected
 import vCutOne from "../../assets/images/cut-types/v-cut-top.png";
 import vCutshort from "../../assets/images/cut-types/v-cut-shorts.png";
 import noVcutTwo from "../../assets/images/cut-types/no-v-cut-top.png";
 import noVCutshort from "../../assets/images/cut-types/no-v-cut-short.png";
 export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
-  const [showAnswer, setShowAnswer] = useState(false);
+  
   const handleTab = () => {
     onAccordionToggle();
   };
@@ -45,36 +44,7 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
             <div className="answer">
               <div className="customize-prod-list scrollbar">
                 <div className="wraper shoulder-size">
-                  <div className="customize-info">
-                    <div className="customize-info-inner">
-                      <div
-                        className={`info jersey-cutting ${
-                          cutType === "v" ? "active-jerseyCut" : ""
-                        }`}
-                        data-id="noCut"
-                      >
-                        <button
-                          className="button"
-                          onClick={() => handleCutorNoCut("v")}
-                        >
-                          <div className="info-group">
-                            <figure>
-                              <img src={vCutshort} alt="" />
-                              <figcaption>V Cut Top</figcaption>
-                            </figure>
-                            <figure>
-                              <img src={vCutOne} alt="" />
-                              <figcaption>V Cut Shorts</figcaption>
-                            </figure>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="wraper shoulder-size">
-                  <div className="customize-info">
-                    <div className="customize-info-inner">
+                  <div className="customize-info"><div className="customize-info-inner">
                       <div
                         className={`info jersey-cutting ${
                           cutType === "noV" ? "active-jerseyCut" : ""
@@ -93,6 +63,35 @@ export default function Vtype({ onImageSelect,isOpen, onAccordionToggle }) {
                             <figure>
                               <img src={noVCutshort} alt="" />
                               <figcaption>No V Cut Top</figcaption>
+                            </figure>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div className="wraper shoulder-size">
+                  <div className="customize-info">
+                  <div className="customize-info-inner">
+                      <div
+                        className={`info jersey-cutting ${
+                          cutType === "v" ? "active-jerseyCut" : ""
+                        }`}
+                        data-id="noCut"
+                      >
+                        <button
+                          className="button"
+                          onClick={() => handleCutorNoCut("v")}
+                        >
+                          <div className="info-group">
+                            <figure>
+                              <img src={vCutshort} alt="" />
+                              <figcaption>V Cut Top</figcaption>
+                            </figure>
+                            <figure>
+                              <img src={vCutOne} alt="" />
+                              <figcaption>V Cut Shorts</figcaption>
                             </figure>
                           </div>
                         </button>

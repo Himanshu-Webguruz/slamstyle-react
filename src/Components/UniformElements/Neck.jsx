@@ -5,7 +5,7 @@ import JerseyCustomisableData from '../../utils/jerseyCustomisableData.js'
 export default function Neck({ onNeckSelect, isOpen, onAccordionToggle  }) {
   // for showing or hiding the tab of neck options
   const JerseyNum = localStorage.getItem("selectedJersy");
-  const [showAnswer, setShowAnswer] = useState(false);
+  
   const [selectedNeckId, setSelectedNeckId] = useState(JerseyCustomisableData[JerseyNum].neck_style)
   
 

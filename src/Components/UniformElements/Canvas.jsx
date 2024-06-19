@@ -84,7 +84,7 @@ export default function Canvas({
   const [numPosition, setNumPosition] = useState({
     left: 200,
     top: 70,
-    scaleX: 3,
+    scaleX: 3,  
     scaleY: 3,
     angle: 0,
   })

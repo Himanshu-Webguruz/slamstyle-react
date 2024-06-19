@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function AddImages({ gettingImages, isOpen, onAccordionToggle }) {
   // for showing or hiding the tab of neck options
-  const [showAnswer, setShowAnswer] = useState(false);
+  
   const [imageName, setImageName] = useState("");
 
   const handleTab = () => {

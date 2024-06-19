@@ -5,7 +5,7 @@ import allColors from "../../utils/colors.js";
 
 const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
   // this state is for showing/hiding the tab of AddText
-  const [showAnswer, setShowAnswer] = useState(false);
+  
   const handleTab = () => {
     onAccordionToggle();
   };

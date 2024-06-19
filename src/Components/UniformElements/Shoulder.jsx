@@ -5,7 +5,7 @@ export default function Shoulder({ onShoulderSelect, isOpen, onAccordionToggle  
   
   const ShoulderImages = ShoulderStore(); // Corrected function call
 
-  const [showAnswer, setShowAnswer] = useState(false);
+  
 
   const [selectedShoulder, setSelectedShoulder] = useState(1)
   
