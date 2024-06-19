@@ -8,11 +8,17 @@ export default function Shoulder({ onShoulderSelect, isOpen, onAccordionToggle  
   const [showAnswer, setShowAnswer] = useState(false);
 
   const [selectedShoulder, setSelectedShoulder] = useState(1)
-
-  const handleShoulderImageClick = (shoulderImg,id) => {
+  
+  const handleShoulderImageClick = (shoulderImg, id) => {
     onShoulderSelect(shoulderImg);
-    setSelectedShoulder(id)
-  };
+    setSelectedShoulder(id);
+    const isMobileView = window.innerWidth <= 960; // Change the breakpoint value as needed
+
+  // Call onAccordionToggle only if it's in mobile view
+  if (isMobileView) {
+    onAccordionToggle();
+  }
+}
 
   const handleTab = () => {
     onAccordionToggle();

@@ -52,68 +52,69 @@ export default function Color({ onColorSelect, selectedNeckId ,shapeColor,isOpen
   // and selectedNeckId for selected neck
   const renderColorSelection = (area, buttonText, layers, selectedNeckId) => {
     const colorAreas = [];
-
-    // created variable that store layers of neck
     let neckLayers = layers;
-
-    // if neck is selected and it is from 2,4,12 . The parseInt function is used because the selectedNeckId might be a string, and you want to compare it with the numeric values in the array
+  
     if (selectedNeckId && [2, 4, 12].includes(parseInt(selectedNeckId))) {
       neckLayers = 2;
     } else {
       neckLayers = 1;
     }
-
-    // start a loop if area is neck then use neckLayers else use layers for shoulder and shirt
+  
     for (let i = 1; i <= (area === "neck" ? neckLayers : layers); i++) {
       const colorKey = area + i;
-
-      // then push all these buttons inside the colorAreas array
+  
       colorAreas.push(
         <div style={{ display: "flex", flexDirection: "column" }} key={i}>
-          {/* this is the label let say shirt1, shirt2, neck1, neck3 */}
           <span>{buttonText} {i}</span>
-          {/* this is the button for handling to show or hide color palette */}
-          <input
-            type="button"
-            style={{
-              backgroundColor: selectedColors[colorKey] || shapeColor[colorKey] || "#fff",
-              height: "30px",
-              width: "30px",
-              marginRight: "250px",
-            }}
-            onClick={() => handleShowColor(colorKey)}
-          />
-          {/* Show recent colors */}
+          <div style={{ position: "relative" }}>
+            <input
+              type="button"
+              style={{
+                backgroundColor: selectedColors[colorKey] || shapeColor[colorKey] || "#fff",
+                height: "30px",
+                width: "30px",
+                marginRight: "250px",
+              }}
+              onClick={() => handleShowColor(colorKey)}
+            />
+            {showColor === colorKey && (
+              <div style={{ position: "absolute", top: 0, right: 0 }}>
+                <button onClick={() => handleShowColor("")}>
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
           {showColor === colorKey && (
             <>
-            <div className="merge-two-layers">
-              <div style={{ display: "flex" }} className="recent-inputs">
-                {recentColors.map((color, index) => (
-                  <input
-                    key={index}
-                    type="button"
-                    style={{
-                      backgroundColor: color,
-                    }}
-                    onClick={() => handleColor(color, colorKey)}
-                  />
-                ))}
-              </div>
-              <div className="color-row">
-                {allColors.map((color, index) => (
-                  <input
-                    key={index}
-                    type="button"
-                    style={{
-                      backgroundColor: color,
-                      height: "15px",
-                      width: "15px",
-                      marginRight: "5px",
-                    }}
-                    onClick={() => handleColor(color, colorKey)}
-                  />
-                ))}
-              </div>
+              <div className="merge-two-layers">
+                <div style={{ display: "flex" }} className="recent-inputs">
+                  {recentColors.map((color, index) => (
+                    <input
+                      key={index}
+                      type="button"
+                      style={{
+                        backgroundColor: color,
+                      }}
+                      onClick={() => handleColor(color, colorKey)}
+                    />
+                  ))}
+                </div>
+                <div className="color-row">
+                  {allColors.map((color, index) => (
+                    <input
+                      key={index}
+                      type="button"
+                      style={{
+                        backgroundColor: color,
+                        height: "15px",
+                        width: "15px",
+                        marginRight: "5px",
+                      }}
+                      onClick={() => handleColor(color, colorKey)}
+                    />
+                  ))}
+                </div>
               </div>
             </>
           )}
