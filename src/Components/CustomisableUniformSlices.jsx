@@ -10,7 +10,7 @@ import Canvas from "./UniformElements/Canvas.jsx";
 
 import AddImages from "./UniformElements/AddImages.jsx";
 
-import { useState, useRef } from "react";
+import { useState, useRef,useEffect } from "react";
 import AddText from "./UniformElements/AddText.jsx";
 
 export default function CustomisableUniformSlices() {
@@ -26,7 +26,15 @@ export default function CustomisableUniformSlices() {
   const noVRightSide = `assets/jerseys/${jersyNum}/slicings/crew_noV_rightside.png`;
 
  
-  const [openAccordion, setOpenAccordion] = useState("neck-style-layer");
+  const [openAccordion, setOpenAccordion] = useState("");
+
+  useEffect(() => {
+    if (window.innerWidth > 960) {
+      setOpenAccordion("neck-style-layer");
+    }
+  }, []);
+
+  const isMobileView = window.innerWidth <= 960;
 
   // Function to handle accordion toggle
   const handleAccordionToggle = (accordionName) => {

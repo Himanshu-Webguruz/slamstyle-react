@@ -317,7 +317,7 @@ const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
 
                 {showAllColors && (
                   <div className="all-colors">
-
+                    <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -330,6 +330,7 @@ const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
                         onClick={() => handleColorSelection(color)}
                       ></input>
                     ))}
+                  </div>
                   </div>
                 )}
                <div className="labelMerge">
@@ -354,6 +355,7 @@ const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
 
                 {showOutlineColors && (
                   <div className="all-colors">
+                         <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -366,6 +368,7 @@ const AddText = ({ onCanvasTemp, getNumValue,isOpen, onAccordionToggle }) => {
                         onClick={() => handleOutlineColorSelection(color)}
                       ></input>
                     ))}
+                  </div>
                   </div>
                 )}
               </div>
