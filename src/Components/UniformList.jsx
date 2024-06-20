@@ -3,14 +3,14 @@ import jerseyPreviewsList from "./UniformStore/PreviewStore.jsx";
 
 
 import CustomisableUniformSlices from "./CustomisableUniformSlices.jsx";
-export default function UniformList() {
+export default function UniformList({ onJerseySelect }) {
   const [jersey, setJersey] = useState();
 
   const handleClick = (id) => {
     localStorage.setItem("selectedJersy", id);
     setJersey(id);
+    onJerseySelect(id);
   };
-
   return (
     <>
       {!jersey ? (

@@ -10,9 +10,13 @@ import FinalForm from "./Components/FinalForm.jsx";
 function App() {
   const [stepIdData, SetStepIdData] = useState(1);
 
-  function StepData(stepId) {
+  const StepData = (stepId) => {
     SetStepIdData(stepId);
-  }
+  };
+
+  const handleJerseySelect = () => {
+    SetStepIdData(2);
+  };
 
   return (
     <>
@@ -21,8 +25,8 @@ function App() {
           <div className="container">
             <div className="uniform-inner">
               <div className="uniform-tabs">
-                <Steps gettingdata={StepData} />
-                {stepIdData === 1 && <UniformList />}
+              <Steps gettingdata={StepData} activeStateProp={stepIdData} />
+                {stepIdData === 1 && <UniformList  onJerseySelect={handleJerseySelect} />}
                 {stepIdData === 2 && <CustomisableUniformSlices/>}
                 {stepIdData === 3 && <FinalForm/>}
               </div>
