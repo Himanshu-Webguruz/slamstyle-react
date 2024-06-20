@@ -67,6 +67,7 @@ export default function Shoulder({ onShoulderSelect, isOpen, onAccordionToggle  
       {isOpen && (
           <div className="answer-wrap">
             <div className="customize-prod-list">
+              <div className="answer">
               <div className="wraper shoulder-size">
                 <h4>Shoulder Size</h4>
 
@@ -98,7 +99,7 @@ export default function Shoulder({ onShoulderSelect, isOpen, onAccordionToggle  
                   ))}
                 </div>
               </div>
-
+              </div>
              
             </div>
           </div>

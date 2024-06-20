@@ -14,7 +14,7 @@ import { useState, useRef } from "react";
 import AddText from "./UniformElements/AddText.jsx";
 
 export default function CustomisableUniformSlices() {
-  const ShoulderImages = ShoulderStore(); // Corrected function call
+  const ShoulderImages = ShoulderStore(); 
 
   const jersyNum = localStorage.getItem("selectedJersy");
 
@@ -26,11 +26,11 @@ export default function CustomisableUniformSlices() {
   const noVRightSide = `assets/jerseys/${jersyNum}/slicings/crew_noV_rightside.png`;
 
  
-  const [openAccordion, setOpenAccordion] = useState(null);
+  const [openAccordion, setOpenAccordion] = useState("neck-style-layer");
 
   // Function to handle accordion toggle
   const handleAccordionToggle = (accordionName) => {
-    setOpenAccordion(openAccordion === accordionName ? null : accordionName);
+    setOpenAccordion(openAccordion === accordionName ? "" : accordionName);
   };
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // state for selected Neck Options

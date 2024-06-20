@@ -15,9 +15,9 @@ export const Steps = ({ gettingdata }) => {
       <ul id="uniform-tabs-nav" className="list-unstyled">
         <li className={`navone ${activeState === 1 ? "active" : ""}`}>
           <a onClick={() => handleStepClick(1)}>
-            <div className="step">
+            {/* <div className="step">
               <div className="step-no">Step 1</div>
-            </div>
+            </div> */}
             <div className="step-tab">
               <div className="step-tab-icon">
                 <figure>
@@ -31,9 +31,9 @@ export const Steps = ({ gettingdata }) => {
         </li>
         <li className={`navtwo ${activeState === 2 ? "active" : ""}`}>
           <a onClick={() => handleStepClick(2)}>
-            <div className="step">
+            {/* <div className="step">
               <div className="step-no">Step 2</div>
-            </div>
+            </div> */}
             <div className="step-tab">
               <div className="step-tab-icon">
                 <figure>
@@ -50,9 +50,9 @@ export const Steps = ({ gettingdata }) => {
         </li>
         <li className={`navthree ${activeState === 3 ? "active" : ""}`}>
           <a onClick={() => handleStepClick(3)}>
-            <div className="step">
+            {/* <div className="step">
               <div className="step-no">Step 3</div>
-            </div>
+            </div> */}
             <div className="step-tab">
               <div className="step-tab-icon">
                 <figure>
