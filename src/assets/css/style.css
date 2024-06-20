@@ -18,7 +18,13 @@ body {
     --font-family: 'Roboto Condensed', sans-serif;
 }
 
+/* div#scroll_change, .customize-view__wrap.flex-row {
+    height: 100%;
+} */
 
+html, body, div#root, section.custom-uniform, .uniform-wrapper, .uniform-wrapper .container, .uniform-wrapper .container .uniform-inner, .uniform-wrapper .container .uniform-tabs {
+    height: 100%;
+}
 
 /* List Style */
 .list-unstyled {
@@ -1215,15 +1221,20 @@ body::-webkit-scrollbar,
 .customize-form .custom-form label span {
     color: #f00;
 }
-
+.customize-prod-list.scrollbar .input-append input{
+    color: #000 !important;
+}
 
 .minimize-sec, .txtuni{
 display: none;
 }
 
-
+label {
+    color: #fff;
+}
 .sklble{
     width: 100%;
+    color: #fff;
 }
 
 
@@ -1440,6 +1451,9 @@ h3.forMob svg {
 }
 .customize-uniform .customize-layout .customize-view .customize-view__wrap .customize-view__large:nth-child(2) {
     width: 20%;
+}
+button:focus, button:focus-visible {
+    outline: unset !important;
 }
 
 /* Media Query */
@@ -1721,6 +1735,7 @@ h3.forMob svg {
         height: 236px;
         overflow: auto;
     }
+    
 }
 
 @media screen and (max-width:767px) {
@@ -1780,6 +1795,9 @@ div#customize-uniform_here {
 }
 section.custom-uniform {
     overflow: hidden;
+}
+div#html-content-holder .MuiBox-root canvas {
+    height: 77vh;
 }
     }
 
@@ -1883,7 +1901,14 @@ section.custom-uniform {
         height: 100% !important;
         width: 100% !important;
     }
-
+    html, body, div#root, section.custom-uniform, .uniform-wrapper, .uniform-wrapper .container, .uniform-wrapper .container .uniform-inner, .uniform-wrapper .container .uniform-tabs {
+        height: auto;
+    }
+   
+    .customize-view__wrap.flex-row {
+        padding-bottom: 0px;
+        height: 100vh;
+    }
     /* 22/12/2023 CSS Ends Here */
 }
 
