@@ -5,7 +5,7 @@ import "./App.css";
 import '../public/fonts.css'
 import { Steps } from "./Components/Steps.jsx";
 import UniformList from "./Components/UniformList";
-import CustomizeUniform from "./Components/CustomizeUniform.jsx";
+import CustomisableUniformSlices from "./Components/CustomisableUniformSlices.jsx";
 import FinalForm from "./Components/FinalForm.jsx";
 function App() {
   const [stepIdData, SetStepIdData] = useState(1);
@@ -23,7 +23,7 @@ function App() {
               <div className="uniform-tabs">
                 <Steps gettingdata={StepData} />
                 {stepIdData === 1 && <UniformList />}
-                {stepIdData === 2 && <CustomizeUniform />}
+                {stepIdData === 2 && <CustomisableUniformSlices/>}
                 {stepIdData === 3 && <FinalForm/>}
               </div>
             </div>

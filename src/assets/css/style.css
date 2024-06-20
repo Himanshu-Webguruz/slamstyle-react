@@ -1796,9 +1796,7 @@ div#customize-uniform_here {
 section.custom-uniform {
     overflow: hidden;
 }
-div#html-content-holder .MuiBox-root canvas {
-    height: 77vh;
-}
+
     }
 
 @media screen and (max-width:575px) {
