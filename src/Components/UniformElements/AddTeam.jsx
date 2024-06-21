@@ -34,27 +34,25 @@ const AddTeam = ({ onCanvasTemp, getNumValue, onPlayerTemp ,txtPosition,isOpen, 
         </h3>
         
         {isOpen && (
+          
           <div className="answer-wrap">
-            <div className="answer">
-              <div className="customize-prod-list scrollbar">
-                <div className="wraper">
-                  <div className="name-number-row">
-                    <div className="name-number-col">
-                      <div className="name-number-info full-width">
+          
+              
+                  
                     
+                      <div >
                         <AddText onCanvasTemp={onCanvasTemp} txtPosition={txtPosition} />
                       </div>
-                      <div className="name-number-info full-width">
-                        {/* <AddPlayerNum getNumValue={getNumValue} /> */}
+                      <div>
+                        {/* <AddPlayerNum getNumValue={getNumValue}/> */}
                       </div>
-                      <div className="name-number-info full-width">
+                      <div >
                         {/* <AddPlayerName onPlayerTemp={onPlayerTemp} /> */}
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    
+                  
+                
+           
           </div>
         )}
       </li>

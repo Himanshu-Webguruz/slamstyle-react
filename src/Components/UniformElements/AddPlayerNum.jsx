@@ -4,13 +4,6 @@ import { useState, useEffect } from "react";
 import allColors from "../../utils/colors.js";
 
 const AddPlayerNum = ({ getNumValue }) => {
-  // this state is for showing/hiding the tab of AddText
-  const [showAnswer, setShowAnswer] = useState(false);
-  const handleTab = (tabName) => {
-    if (tabName === "text-style-layer") {
-      setShowAnswer(!showAnswer);
-    }
-  };
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [numValue, setNumValue] = useState("");
@@ -193,14 +186,7 @@ const AddPlayerNum = ({ getNumValue }) => {
 
   return (
     <>
-      <li className={`${showAnswer ? "" : "active"} text-style`}>
-        {/* this is the heading of tab */}
-        <h3 onClick={() => handleTab("text-style-layer")}>
-         This is AddPlayerNum
-        </h3>
-
-        {/* if showAnswer is true then show the data from the tabs */}
-        {showAnswer && (
+      <div className= "text-style">
           <div className="answer-wrap">
             <div className="answer">
               <div className="customize-prod-list scrollbar">
@@ -236,21 +222,16 @@ const AddPlayerNum = ({ getNumValue }) => {
                     </div>
                   </div>
                 </div>
-
-
-             
-
                 <select onChange={handleFontChange} value={fontValue} id="font">
-                  {fontArray.map((fontKey, id) => (
-                    <option
-                      key={id}
-                      value={fontKey}
-                      style={{ fontFamily: fontKey }}
-                    >
-                      {fontMapping[fontKey].split("/").pop().split(".")[0]}
+                {fontArray.map((fontKey, id) => {
+                  const fontName = fontMapping[fontKey] ? fontMapping[fontKey].split("/").pop().split(".")[0] : fontKey;
+                  return (
+                    <option key={id} value={fontKey} style={{ fontFamily: fontKey }}>
+                      {fontName}
                     </option>
-                  ))}
-                </select>
+                  );
+                })}
+              </select>
 
                 <input
                   type="button"
@@ -317,8 +298,7 @@ const AddPlayerNum = ({ getNumValue }) => {
               </div>
             </div>
           </div>
-        )}
-      </li>
+      </div>
     </>
   );
 };

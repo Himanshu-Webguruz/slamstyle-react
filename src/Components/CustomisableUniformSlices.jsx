@@ -10,7 +10,7 @@ import Canvas from "./UniformElements/Canvas.jsx";
 
 import AddImages from "./UniformElements/AddImages.jsx";
 
-import { useState, useEffect } from "react";
+import { useState, useRef,useEffect } from "react";
 import AddTeam from "./UniformElements/AddTeam.jsx";
 
 
