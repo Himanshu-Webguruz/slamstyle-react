@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import allColors from "../../utils/colors.js";
 
-const AddText = ({ onCanvasTemp,txtPosition }) => {
+const AddPlayerNum = ({ getNumValue }) => {
   // this state is for showing/hiding the tab of AddText
   const [showAnswer, setShowAnswer] = useState(false);
   const handleTab = (tabName) => {
@@ -11,6 +11,10 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
       setShowAnswer(!showAnswer);
     }
   };
+
+  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const [numValue, setNumValue] = useState("");
+
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -46,9 +50,6 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  // this state is for storing input data from text field
-  const [inputText, setInputText] = useState("");
-
   // state for showing and hiding color palette
   const [showAllColors, setShowAllColors] = useState(false);
   // fir showing/hiding colors
@@ -64,30 +65,26 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
     setSelectedColor(color);
   };
 
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-  // state for select option for shapes
-  const [shapeValue, setShapeValue] = useState("Straight");
-  // shape array for all shapes
-  const shapeArray = [
-    "vertical-arc",
-    "center-bulge",
-    "bottom-vertical",
-    "full-rev-arc",
-    "half-asleep-arc",
-    "inverse-vertical",
-    "Straight",
-    "gravity",
-    "trajectory",
-    "san-diego",
-    "breathing-in",
-  ];
+  // const [shapeValue, setShapeValue] = useState("Straight");
+  // // shape array for all shapes
+  // const shapeArray = [
+  //   "vertical-arc",
+  //   "center-bulge",
+  //   "bottom-vertical",
+  //   "full-rev-arc",
+  //   "half-asleep-arc",
+  //   "inverse-vertical",
+  //   "Straight",
+  //   "gravity",
+  //   "trajectory",
+  //   "san-diego",
+  //   "breathing-in",
+  // ];
   // handling shapeValue to set shape
   const handleOptionChange = () => {
     setShapeValue(document.getElementById("shape").value);
   };
 
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   // state for selected font value from css
   const [fontValue, setFontValue] = useState("SS0");
   // storing all font
@@ -141,16 +138,12 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
     setFontMapping(fontMappingTemp);
   }, [fontValue]);
 
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  // this is handled when Apply button is clicked, it will call svgpathfunc from custom.js and
-  // pass value dynamically from here
-
   useEffect(() => {
-    if (inputText) {
+    if (numValue) {
       handlegettingData();
     }
   }, [
-    shapeValue,
+   
     fontValue,
     boldchecked,
     italicCheck,
@@ -161,10 +154,12 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
 
   const handlegettingData = () => {
     const textInput = document.getElementById("text-string").value;
-    const textShape = shapeValue;
+    
     const textFont = fontValue;
 
-    window.svgpathfunc(
+    
+
+    window.svgpathfunc2(
       "front",
       textInput,
       outlineCheck,
@@ -172,46 +167,40 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
       selectedColor,
       fontMapping[textFont]?.split("/").pop(),
       boldchecked,
-      textShape,
+      "Straight",
       italicCheck
     );
+
+   
   };
 
   useEffect(() => {
     const handleCanvasTemp = () => {
-      onCanvasTemp(window.canvasTemp);
+      getNumValue(window.canvasTemp2);
     };
 
-    window.addEventListener("canvasTemp", handleCanvasTemp);
+    window.addEventListener("canvasTemp2", handleCanvasTemp);
 
     return () => {
-      window.removeEventListener("canvasTemp", handleCanvasTemp);
+      window.removeEventListener("canvasTemp2", handleCanvasTemp);
     };
-  }, [onCanvasTemp]);
+  }, [getNumValue]);
 
-const [txtPos, setTxtPos] = useState({})
-  const handleReset=()=>{
-    setTxtPos({left: 50,
-      top: 50,
-      scaleX: 1,
-      scaleY: 2,
-      angle: 0,})
-      txtPosition({left: 50,
-        top: 50,
-        scaleX: 1,
-        scaleY: 2,
-        angle: 0,})
+  const handleReset = ()=>{
+    console.log('resetted')
   }
+
 
   return (
     <>
-      <li className={`${showAnswer ? "active" : ""} text-style`}>
-      <h3 onClick={() => handleTab("text-style-layer")}>
-         This is AddText
+      <li className={`${showAnswer ? "" : "active"} text-style`}>
+        {/* this is the heading of tab */}
+        <h3 onClick={() => handleTab("text-style-layer")}>
+         This is AddPlayerNum
         </h3>
 
+        {/* if showAnswer is true then show the data from the tabs */}
         {showAnswer && (
-          
           <div className="answer-wrap">
             <div className="answer">
               <div className="customize-prod-list scrollbar">
@@ -220,17 +209,17 @@ const [txtPos, setTxtPos] = useState({})
                     <div className="name-number-col">
                       <div className="name-number-info full-width">
                         <div className="input-append field-input">
-                      
-                          <label className="sklble">Add Team Name
+                          <label className="sklble">
                             <a onClick={handleReset}>Reset</a>
+                            Add Player Number (Only digits)
                           </label>
                           <input
                             className="span2"
-                            value={inputText}
+                            value={numValue}
                             id="text-string"
-                            type="text"
+                            type="number"
                             style={{ color: "#fff" }}
-                            onChange={(e) => setInputText(e.target.value)}
+                            onChange={(e) => setNumValue(e.target.value)}
                             placeholder="add player number here..."
                           />
 
@@ -247,17 +236,10 @@ const [txtPos, setTxtPos] = useState({})
                     </div>
                   </div>
                 </div>
-                <select
-                  onChange={handleOptionChange}
-                  value={shapeValue}
-                  id="shape"
-                >
-                  {shapeArray.map((item, id) => (
-                    <option key={id} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+
+
+             
+
                 <select onChange={handleFontChange} value={fontValue} id="font">
                   {fontArray.map((fontKey, id) => (
                     <option
@@ -279,7 +261,6 @@ const [txtPos, setTxtPos] = useState({})
 
                 {showAllColors && (
                   <div className="all-colors">
-                    <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -292,7 +273,6 @@ const [txtPos, setTxtPos] = useState({})
                         onClick={() => handleColorSelection(color)}
                       ></input>
                     ))}
-                  </div>
                   </div>
                 )}
                 <label htmlFor="bold"> Bold</label>
@@ -320,7 +300,6 @@ const [txtPos, setTxtPos] = useState({})
 
                 {showOutlineColors && (
                   <div className="all-colors">
-                    <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -334,7 +313,6 @@ const [txtPos, setTxtPos] = useState({})
                       ></input>
                     ))}
                   </div>
-                  </div>
                 )}
               </div>
             </div>
@@ -345,4 +323,4 @@ const [txtPos, setTxtPos] = useState({})
   );
 };
 
-export default AddText;
+export default AddPlayerNum;

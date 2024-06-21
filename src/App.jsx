@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import "./assets/css/style.css";
 import "./assets/css/app.css";
 import "./App.css";
@@ -18,6 +18,31 @@ function App() {
     SetStepIdData(2);
   };
 
+  const jerseyFrontRef = useRef(null);
+  const jerseyBackRef = useRef(null);
+  const jerseyLeftRef = useRef(null);
+  const jerseyRightRef = useRef(null);
+
+  function navigateToFinalForm() {
+    jerseyFrontRef.current.captureCanvas().then((result) => {
+      localStorage.setItem("front", result);
+    });
+
+    jerseyBackRef.current.captureCanvas().then((result) => {
+      localStorage.setItem("back", result);
+    });
+
+    jerseyLeftRef.current.captureCanvas().then((result) => {
+      localStorage.setItem("left", result);
+    });
+
+    jerseyRightRef.current.captureCanvas().then((result) => {
+      localStorage.setItem("right", result);
+    });
+
+    SetStepIdData(3);
+  }
+
   return (
     <>
       <section className="custom-uniform">
@@ -27,7 +52,13 @@ function App() {
               <div className="uniform-tabs">
               <Steps gettingdata={StepData} activeStateProp={stepIdData} />
                 {stepIdData === 1 && <UniformList  onJerseySelect={handleJerseySelect} />}
-                {stepIdData === 2 && <CustomisableUniformSlices/>}
+                {stepIdData === 2 && <CustomisableUniformSlices
+                navigateToFinalForm={navigateToFinalForm}
+                jerseyFrontRef={jerseyFrontRef}
+                jerseyBackRef={jerseyBackRef}
+                jerseyLeftRef={jerseyLeftRef}
+                jerseyRightRef={jerseyRightRef}
+                />}
                 {stepIdData === 3 && <FinalForm/>}
               </div>
             </div>

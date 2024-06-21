@@ -15,20 +15,15 @@ const FinalForm = () => {
     comments: "",
   });
 
+  const jerseyFrontRef = localStorage.getItem("front")
+  const jerseyBackRef = localStorage.getItem("back")
+  const jerseyLeftRef = localStorage.getItem("left")
+  const jerseyRightRef = localStorage.getItem("right")
+
+
+
+
   const [errors, setErrors] = useState({});
-
-  useEffect(() => {
-    // Load form data from localStorage if available
-    const savedFormData = localStorage.getItem("formData");
-    if (savedFormData) {
-      setFormData(JSON.parse(savedFormData));
-    }
-  }, []);
-
-  useEffect(() => {
-    // Save form data to localStorage whenever it changes
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [formData]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -68,13 +63,30 @@ const FinalForm = () => {
     e.preventDefault();
     if (validateForm()) {
       generatePDF();
-      // Clear localStorage after successful form submission
-      localStorage.removeItem("formData");
+      
     }
   };
 
-  const generatePDF = () => {
-    const pdf = new jsPDF();
+  const generatePDF = async() => {
+    // const pdf = new jsPDF();
+
+
+    const pdf = new jsPDF(); // Set the page orientation to portrait, unit to mm, and format to A4
+
+
+
+    // i want these two in 1st page
+    const refs = [
+      { ref: jerseyFrontRef, x: 10, y: 110 },
+      { ref: jerseyBackRef, x: 110, y: 110 },
+    ];
+
+    // and these two in 2nd page
+    const refsSecondPage = [
+      { ref: jerseyLeftRef, x: 10, y: 80 },
+      { ref: jerseyRightRef, x: 110, y: 80 },
+    ];
+
 
     pdf.setFontSize(16);
     pdf.setFont('helvetica', 'bold');
@@ -90,6 +102,7 @@ const FinalForm = () => {
     pdf.setLineWidth(0.5);
     pdf.line(lineX, lineY, lineX + lineWidth, lineY);
 
+    // pdf data to be generated in the form of table 
     pdf.autoTable({
       startY: 22,
       head: [],
@@ -112,7 +125,44 @@ const FinalForm = () => {
       },
     });
 
-    pdf.save("form-data.pdf");
+    // Add data in the first page
+    for (let { ref, x, y } of refs) {
+      if (ref) {
+        const imageDataUrl = ref;
+
+        pdf.addImage(imageDataUrl, "PNG", x, y);
+      }
+    }
+
+    // for adding a new page to pdf
+    pdf.addPage();
+
+    // Add data in the second page
+    for (let { ref, x, y } of refsSecondPage) {
+      if (ref) {
+        const imageDataUrl = ref;
+        pdf.addImage(imageDataUrl, "PNG", x, y);
+      }
+    }
+
+   
+    // Adding watermark to each page
+    const pages = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= pages; i++) {
+      pdf.setPage(i);
+      pdf.setFontSize(44);
+      pdf.setTextColor(200);
+      const pageHeight = pdf.internal.pageSize.height;
+      const watermarkText = "1300251107||Slamstyle";
+      const textHeight = 14 / pdf.internal.scaleFactor;
+      pdf.text(watermarkText, 50, (pageHeight - textHeight) / 2, null, 45);
+    }
+    // for saving the pdf with specified name
+    pdf.save("jersey_design.pdf");
+
+    
+
+    
   };
 
   return (
@@ -256,8 +306,7 @@ const FinalForm = () => {
                     </span>
                   )}
                 </div>
-              </div
->
+              </div>
               <div className="flex-col">
                 <div className="form-group">
                   <input

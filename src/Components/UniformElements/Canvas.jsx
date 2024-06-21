@@ -8,7 +8,7 @@ import Tab from "@mui/material/Tab";
 import "../../../public/custom.js";
 
 // for generating pdf
-import { jsPDF } from "jspdf";
+// import { jsPDF } from "jspdf";
 
 import Box from "@mui/material/Box";
 import JerseyLeft from "../JerseyComponents/JerseyLeft";
@@ -56,10 +56,19 @@ export default function Canvas({
   selectedShoulderImage,
   selectedCutorNoCut,
   selectedImage,
-  numVal
+  numVal,
+  navigateToFinalForm,
+  player,
+  jerseyFrontRef,
+  jerseyBackRef,
+  jerseyLeftRef,
+  jerseyRightRef,
+  textPosition,
+  setTextPosition
 }) {
   // this state is for differentiating the tabs
   const [value, setValue] = useState(0);
+
 
   // this is used to avoid rendering left and right jersey at initial phase
   const [initialRender, setInitialRender] = useState(true);
@@ -73,19 +82,13 @@ export default function Canvas({
     angle: 0,
   });
 
-  const [textPosition, setTextPosition] = useState({
-    left: 50,
-    top: 50,
-    scaleX: 1,
-    scaleY: 2,
-    angle: 0,
-  })
+
 
   const [numPosition, setNumPosition] = useState({
     left: 200,
-    top: 70,
-    scaleX: 3,  
-    scaleY: 3,
+    top: 100,
+    scaleX: 0.7,
+    scaleY: 0.7,
     angle: 0,
   })
 
@@ -97,6 +100,13 @@ export default function Canvas({
     angle: 0,
   })
 
+  const [backTextPosition, setBackTextPosition] = useState({
+    left: 80,
+    top: 70,
+    scaleX: 1,
+    scaleY: 1,
+    angle: 0,
+  });
 
 
   // this is for handling the tab change
@@ -160,63 +170,16 @@ export default function Canvas({
     }
   }, [numVal])
 
-  // creating ref for front,back,left and right
-  const jerseyFrontRef = useRef(null);
-  const jerseyBackRef = useRef(null);
-  const jerseyLeftRef = useRef(null);
-  const jerseyRightRef = useRef(null);
+  useEffect(() => {
+    if (player && value !== 1) {
+      setValue(1);
+    }
+  }, [player]);
+
 
   // this function is called when save uniform button is clicked
-  const handleSaveAsPDF = async () => {
-    const pdf = new jsPDF("p", "mm", "a4"); // Set the page orientation to portrait, unit to mm, and format to A4
-
-    // i want these two in 1st page
-    const refs = [
-      { ref: jerseyFrontRef, x: 10, y: 10 },
-      { ref: jerseyBackRef, x: 110, y: 10 },
-    ];
-
-    // and these two in 2nd page
-    const refsSecondPage = [
-      { ref: jerseyLeftRef, x: 10, y: 10 },
-      { ref: jerseyRightRef, x: 110, y: 10 },
-    ];
-
-    // Add data in the first page
-    for (let { ref, x, y } of refs) {
-      if (ref.current) {
-        const imageDataUrl = await ref.current.captureCanvas();
-
-        pdf.addImage(imageDataUrl, "PNG", x, y);
-      }
-    }
-
-    // for adding a new page to pdf
-    pdf.addPage();
-
-    // Add data in the second page
-    for (let { ref, x, y } of refsSecondPage) {
-      if (ref.current) {
-        const imageDataUrl = await ref.current.captureCanvas();
-        pdf.addImage(imageDataUrl, "PNG", x, y);
-      }
-    }
-
-   
-    // Adding watermark to each page
-    const pages = pdf.internal.getNumberOfPages();
-    for (let i = 1; i <= pages; i++) {
-      pdf.setPage(i);
-      pdf.setFontSize(44);
-      pdf.setTextColor(200);
-      const pageHeight = pdf.internal.pageSize.height;
-      const watermarkText = "1300251107||Slamstyle";
-      const textHeight = 14 / pdf.internal.scaleFactor;
-      pdf.text(watermarkText, 50, (pageHeight - textHeight) / 2, null, 45);
-    }
-    // for saving the pdf with specified name
-    pdf.save("jersey_design.pdf");
-    
+  const handleSaveAsPDF =  () => {
+    navigateToFinalForm(); 
   };
 
   return (
@@ -259,6 +222,9 @@ export default function Canvas({
                       numVal={numVal}
                       backNumPosition={backNumPosition}
                       setBackNumPosition={setBackNumPosition}
+                      player={player}
+                      backTextPosition={backTextPosition}
+                      setBackTextPosition={setBackTextPosition}
                     />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
@@ -351,27 +317,42 @@ export default function Canvas({
                 <button
                   id="saveunii"
                   
-                  onClick={()=>{ console.log("Button clicked");handleSaveAsPDF()}}
+                  onClick={()=>{handleSaveAsPDF()}}
                   className="btn-design save-uniform"
                 >
                   Save Uniform and move to step 3
                 </button>
                 <div style={{ position: "absolute", top: -9999, left: -9999 }}>
+                  <JerseyFront
+                   ref={jerseyFrontRef}
+                   canvasTemp={canvasTemp}
+                   shapeColors={shapeColor}
+                   selectedNeckImage={selectedNeckImage}
+                   selectedShoulderImage={
+                     selectedShoulderImage.frontassociate
+                   }
+                   selectedImage={selectedImage}
+                   imagePosition={imagePosition}
+                   setImagePosition={setImagePosition}
+                   textPosition={textPosition}
+                   setTextPosition={setTextPosition}
+                   numVal={numVal}
+                   numPosition={numPosition}
+                   setNumPosition={setNumPosition}
+                 />
                  
                   <JerseyBack
                   ref={jerseyBackRef}
-                    shapeColors={shapeColor}
-                    selectedShoulderImage={selectedShoulderImage.backassociate}
-                    backNumPosition={backNumPosition}
-                      setBackNumPosition={setBackNumPosition}
-                  />
-                   <JerseyFront
-                    shapeColors={shapeColor}
-                    selectedNeckImage={selectedNeckImage}
-                    selectedShoulderImage={selectedShoulderImage.frontassociate}
-                    selectedImage={selectedImage}
-                    imagePosition={imagePosition}
-                    setImagePosition={setImagePosition}
+                  shapeColors={shapeColor}
+                  selectedShoulderImage={
+                    selectedShoulderImage.backassociate
+                  }
+                  numVal={numVal}
+                  backNumPosition={backNumPosition}
+                  setBackNumPosition={setBackNumPosition}
+                  player={player}
+                  backTextPosition={backTextPosition}
+                  setBackTextPosition={setBackTextPosition}
                   />
                   <JerseyLeft
                   ref={jerseyLeftRef}

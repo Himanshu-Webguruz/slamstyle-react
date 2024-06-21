@@ -40,7 +40,8 @@ export default function UniformList({ onJerseySelect }) {
           </div>
         </div>
       ) : (
-        <CustomisableUniformSlices />
+        <CustomisableUniformSlices navigateToFinalForm={navigateToFinalForm} jerseyFrontRef={jerseyFrontRef} 
+                jerseyBackRef={jerseyBackRef} jerseyLeftRef={jerseyLeftRef} jerseyRightRef={jerseyRightRef} />
       )}
      
     </>

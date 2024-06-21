@@ -313,21 +313,25 @@ const JerseyFront = forwardRef(
       }
 
       if (numVal) {
-        const text = new fabric.Textbox(numVal.toString(), {
-          left: numPosition.left,
-          top: numPosition.top,
-          hasControls: true,
-          fontSize: 25,
-          editable: false, // adjust the font size as needed
-        });
+        fabric.Image.fromURL(numVal, (img) => {
+          img.set({
+            left: numPosition.left,
+            top: numPosition.top,
+            scaleX: numPosition.scaleX,
+            scaleY: numPosition.scaleY,
+            angle: numPosition.angle,
+            hasRotatingPoint: false,
+            lockScalingFlip: true,
+            cornerSize: 10,
+            transparentCorners: false,
+          });
+          fabricCanvas.add(img);
+          fabricCanvas.setActiveObject(img);
+          img.on("modified", () => {
+            const { left, top, scaleX, scaleY, angle } = img;
 
-        fabricCanvas.add(text);
-        fabricCanvas.setActiveObject(text);
-
-        text.on("modified", () => {
-          const { left, top, scaleX, scaleY, angle } = text;
-
-          setNumPosition({ left, top, scaleX, scaleY, angle });
+            setNumPosition({ left, top, scaleX, scaleY, angle });
+          });
         });
       }
 
@@ -344,17 +348,22 @@ const JerseyFront = forwardRef(
       captureCanvas: async () => {
         const mainCanvas = canvasRef.current;
         const fabricCanvas = fabricCanvasRef1.current;
+
         const combinedCanvas = document.createElement("canvas");
         const combinedContext = combinedCanvas.getContext("2d");
 
-        combinedCanvas.width = mainCanvas.width;
-        combinedCanvas.height = mainCanvas.height;
+        combinedCanvas.width = 375;
+        combinedCanvas.height = 745;
         combinedContext.drawImage(mainCanvas, 0, 0);
 
         combinedContext.drawImage(
           fabricCanvas,
-          0,0,
+          0,
+          0
+          // imagePosition.scaleX * mainCanvas.width,
+          // imagePosition.scaleY * mainCanvas.height
         );
+
         const dataURL = combinedCanvas.toDataURL("image/png");
 
         return dataURL;

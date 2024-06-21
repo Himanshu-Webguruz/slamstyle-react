@@ -3,7 +3,7 @@ import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
 
 // here shapeColors and selectedShoulderImage are props so this is selected color and shoulderImage
 const JerseyBack = forwardRef(
-  ({selectedShoulderImage,shapeColors, numVal,backNumPosition,setBackNumPosition,},ref) => {
+  ({selectedShoulderImage,shapeColors, numVal,backNumPosition,setBackNumPosition,player,backTextPosition,setBackTextPosition,},ref) => {
     // taking the useRef
     const canvasRef = useRef(null);
     const fabricCanvasRef1 = useRef(null);
@@ -195,7 +195,8 @@ const JerseyBack = forwardRef(
         height: 600,
       });
       if (numVal) {
-        const text = new fabric.Textbox(numVal.toString(), {
+        fabric.Image.fromURL(numVal, (img) => {
+          img.set({
           left: backNumPosition.left,
           top: backNumPosition.top,
           hasControls: true,
@@ -203,19 +204,45 @@ const JerseyBack = forwardRef(
           editable: false,
         });
 
-        fabricCanvas.add(text);
-        fabricCanvas.setActiveObject(text);
+        fabricCanvas.add(img);
+        fabricCanvas.setActiveObject(img);
 
-        text.on("modified", () => {
-          const { left, top, scaleX, scaleY, angle } = text;
+        img.on("modified", () => {
+          const { left, top, scaleX, scaleY, angle } = img;
 
           setBackNumPosition({ left, top, scaleX, scaleY, angle });
+        });
+      });
+      }
+
+      if (player) {
+        fabric.Image.fromURL(player, (img) => {
+          img.set({
+            left: backTextPosition.left,
+            top: backTextPosition.top,
+            scaleX: backTextPosition.scaleX,
+            scaleY: backTextPosition.scaleY,
+            angle: backTextPosition.angle,
+            hasRotatingPoint: false,
+            lockScalingFlip: true,
+            cornerSize: 10,
+            transparentCorners: false,
+          });
+
+          fabricCanvas.add(img);
+          fabricCanvas.setActiveObject(img);
+
+          img.on("modified", () => {
+            const { left, top, scaleX, scaleY, angle } = img;
+
+            setBackTextPosition({ left, top, scaleX, scaleY, angle });
+          });
         });
       }
       return () => {
         fabricCanvas.dispose();
       };
-    }, [numVal]);
+    }, [numVal,player]);
 
     useImperativeHandle(ref, () => ({
       captureCanvas: async () => {

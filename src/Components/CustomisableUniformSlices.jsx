@@ -10,10 +10,17 @@ import Canvas from "./UniformElements/Canvas.jsx";
 
 import AddImages from "./UniformElements/AddImages.jsx";
 
-import { useState, useRef,useEffect } from "react";
-import AddText from "./UniformElements/AddText.jsx";
+import { useState, useEffect } from "react";
+import AddTeam from "./UniformElements/AddTeam.jsx";
 
-export default function CustomisableUniformSlices() {
+
+export default function CustomisableUniformSlices({
+  navigateToFinalForm,
+  jerseyFrontRef,
+  jerseyBackRef,
+  jerseyLeftRef,
+  jerseyRightRef,
+}) {
   const ShoulderImages = ShoulderStore(); 
 
   const jersyNum = localStorage.getItem("selectedJersy");
@@ -124,6 +131,23 @@ export default function CustomisableUniformSlices() {
   const handleGetNumValue =(numValue)=>{
     setNumVal(numValue)
   }
+  const [player, setPlayer] = useState(null);
+  const handlePlayerTemp = (playerVal) => {
+    setPlayer(playerVal);
+  };
+
+  const [textPosition, setTextPosition] = useState({
+    left: 50,
+    top: 50,
+    scaleX: 1,
+    scaleY: 2,
+    angle: 0,
+  });
+
+  const handleTxtPosition = (value)=>{
+    setTextPosition(value)
+  }
+
 
   return (
     <>
@@ -154,7 +178,10 @@ export default function CustomisableUniformSlices() {
                 shapeColor={shapeColor}
                 isOpen={openAccordion==="color-uniform-layer"} onAccordionToggle={()=> handleAccordionToggle("color-uniform-layer")}
               />
-              <AddText onCanvasTemp={handleCanvasTemp} getNumValue={handleGetNumValue}
+              <AddTeam onCanvasTemp={handleCanvasTemp}
+                onPlayerTemp={handlePlayerTemp}
+                getNumValue={handleGetNumValue}
+                txtPosition={handleTxtPosition}
               isOpen={openAccordion==="text-style-layer"} onAccordionToggle={()=>handleAccordionToggle("text-style-layer")}
               />
 
@@ -172,6 +199,14 @@ export default function CustomisableUniformSlices() {
             selectedCutorNoCut={selectedCutorNoCut}
             selectedImage={image}
             numVal={numVal}
+            navigateToFinalForm={navigateToFinalForm}
+            player={player}
+            jerseyFrontRef={jerseyFrontRef}
+            jerseyBackRef={jerseyBackRef}
+            jerseyLeftRef={jerseyLeftRef}
+            jerseyRightRef={jerseyRightRef}
+            textPosition={textPosition}
+            setTextPosition={setTextPosition}
           />
         </div>
       </div>

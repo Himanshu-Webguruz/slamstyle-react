@@ -641,3 +641,188 @@ window.svgpathfunc = async function (
     
   }, 100);
 };
+
+
+
+window.svgpathfunc2 = async function (
+  id,
+  text,
+  stroke,
+  strokeColor,
+  fillColor,
+  font,
+  boldStyle,
+  tn_style,
+  tn_italic
+) {
+  font = font ? font : "Bauer.ttf";
+ 
+  var instance = new SVGTextAnimate(
+    "Fonts/" + font,
+    {
+      duration: 1,
+      direction: "normal",
+      "font-size": 15,
+    },
+    {
+      stroke: stroke ? strokeColor : boldStyle ? fillColor : "#000000",
+      "stroke-width": stroke || boldStyle ? "0.5" : "0",
+      "font-size": 15,
+      bold: true,
+      "fill-color": fillColor ? fillColor : "#000000",
+    }
+  );
+  await instance.setFont();
+
+  if (tn_style != "san-diego") {
+    instance.create("I I I " + text + " I I I", "#svgpath-" + id);
+  } else {
+    instance.create(text, "#svgpath-" + id);
+  }
+
+  setTimeout(function () {
+    if (tn_style != "san-diego") {
+      $("#svgpath-front path:lt(6)").remove();
+      $("#svgpath-front path").slice(-6).remove();
+    }
+
+    $("#svg-element-front style").remove();
+    $("#svgpath-front path").attr("style", "");
+    if (tn_italic) {
+      $("#svgpath-front path").attr("style", "transform: skewX(-15deg);");
+    }
+
+    var svgpathfront = $("#svgpath-front")
+      .html()
+      .replace("\n", "")
+      .replace("\n", "")
+      .replace("\n", "")
+      .replace("fill-opacity:0", "");
+
+    initWrap(svgpathfront, "front", tn_style);
+
+    svgString1 =
+      '<svg id="svgTeamName" width="85" height="22" viewBox="0 0 85 22" xmlns="http://www.w3.org/2000/svg">' +
+      $("#svg-element-front").html() +
+      "</svg>";
+
+    window.svgString1 = svgString1;
+
+    $(".teamNameTemp").html(svgString1);
+
+    var svgFront = document.getElementById("svgTeamName");
+    var bboxFront = svgFront.getBBox();
+    var viewBoxFront = [
+      bboxFront.x,
+      bboxFront.y,
+      bboxFront.width,
+      bboxFront.height,
+    ].join(" ");
+    svgFront.setAttribute("viewBox", viewBoxFront);
+
+   
+
+    
+
+    var canvasTemp2 = "data:image/svg+xml;base64," + btoa(svgFront.outerHTML);
+    window.canvasTemp2 = canvasTemp2
+    
+    window.dispatchEvent(new Event("canvasTemp2"));
+
+    
+  }, 100);
+};
+
+window.svgpathfunc1 = async function (
+  id,
+  text,
+  stroke,
+  strokeColor,
+  fillColor,
+  font,
+  boldStyle,
+  tn_style,
+  tn_italic
+) {
+  font = font ? font : "Bauer.ttf";
+ 
+  var instance = new SVGTextAnimate(
+    "Fonts/" + font,
+    {
+      duration: 1,
+      direction: "normal",
+      "font-size": 15,
+    },
+    {
+      stroke: stroke ? strokeColor : boldStyle ? fillColor : "#000000",
+      "stroke-width": stroke || boldStyle ? "0.5" : "0",
+      "font-size": 15,
+      bold: true,
+      "fill-color": fillColor ? fillColor : "#000000",
+    }
+  );
+  await instance.setFont();
+
+  if (tn_style != "san-diego") {
+    instance.create("I I I " + text + " I I I", "#svgpath-" + id);
+  } else {
+    instance.create(text, "#svgpath-" + id);
+  }
+
+  setTimeout(function () {
+    if (tn_style != "san-diego") {
+      $("#svgpath-back path:lt(6)").remove();
+      $("#svgpath-back path").slice(-6).remove();
+    }
+
+    $("#svg-element-back style").remove();
+    $("#svgpath-back path").attr("style", "");
+    if (tn_italic) {
+      $("#svgpath-back path").attr("style", "transform: skewX(-15deg);");
+    }
+
+    var svgpathback = $("#svgpath-back")
+      .html()
+      .replace("\n", "")
+      .replace("\n", "")
+      .replace("\n", "")
+      .replace("fill-opacity:0", "");
+
+    initWrap(svgpathback, "back", tn_style);
+
+    svgString1 =
+      '<svg id="svgTeamNameBack" width="160" height="22" viewBox="0 0 160 22" xmlns="http://www.w3.org/2000/svg">' +
+      $("#svg-element-back").html() +
+      "</svg>";
+
+    window.svgString1 = svgString1;
+
+    $(".teamNameTemp").html(svgString1);
+
+    var svgBack = document.getElementById("svgTeamNameBack");
+    var bboxBack = svgBack.getBBox();
+    var viewBoxBack = [
+      bboxBack.x,
+      bboxBack.y,
+      bboxBack.width,
+      bboxBack.height,
+    ].join(" ");
+    svgBack.setAttribute("viewBox", viewBoxBack);
+
+   
+
+    
+
+    var canvasTemp1 = "data:image/svg+xml;base64," + btoa(svgBack.outerHTML);
+    window.canvasTemp1 = canvasTemp1
+    
+    window.dispatchEvent(new Event("canvasTemp1"));
+
+    
+  }, 100);
+};
+
+
+
+
+

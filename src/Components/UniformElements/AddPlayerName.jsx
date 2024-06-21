@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import allColors from "../../utils/colors.js";
 
-const AddText = ({ onCanvasTemp,txtPosition }) => {
+const AddPlayerName = ({ onPlayerTemp }) => {
   // this state is for showing/hiding the tab of AddText
   const [showAnswer, setShowAnswer] = useState(false);
   const handleTab = (tabName) => {
@@ -46,8 +46,7 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  // this state is for storing input data from text field
-  const [inputText, setInputText] = useState("");
+  
 
   // state for showing and hiding color palette
   const [showAllColors, setShowAllColors] = useState(false);
@@ -145,27 +144,22 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
   // this is handled when Apply button is clicked, it will call svgpathfunc from custom.js and
   // pass value dynamically from here
 
-  useEffect(() => {
-    if (inputText) {
-      handlegettingData();
-    }
-  }, [
-    shapeValue,
-    fontValue,
-    boldchecked,
-    italicCheck,
-    outlineCheck,
-    selectedOutlineColor,
-    selectedColor,
-  ]);
 
-  const handlegettingData = () => {
-    const textInput = document.getElementById("text-string").value;
+  const [playerText,setPlayerText] = useState("")
+
+  useEffect(() => {
+    if (playerText) {
+      handlePlayerData();
+    }
+  }, [shapeValue, fontValue, boldchecked, italicCheck, outlineCheck, selectedOutlineColor, selectedColor]);
+  
+  const handlePlayerData=()=>{
+    const textInput =  document.getElementById("player-string").value;
     const textShape = shapeValue;
     const textFont = fontValue;
 
-    window.svgpathfunc(
-      "front",
+    window.svgpathfunc1(
+      "back",
       textInput,
       outlineCheck,
       selectedOutlineColor,
@@ -175,43 +169,32 @@ const AddText = ({ onCanvasTemp,txtPosition }) => {
       textShape,
       italicCheck
     );
-  };
+  }
 
   useEffect(() => {
-    const handleCanvasTemp = () => {
-      onCanvasTemp(window.canvasTemp);
+    const handlePlayerTemp = () => {
+      onPlayerTemp(window.canvasTemp1);
     };
 
-    window.addEventListener("canvasTemp", handleCanvasTemp);
+    window.addEventListener("canvasTemp1", handlePlayerTemp);
 
     return () => {
-      window.removeEventListener("canvasTemp", handleCanvasTemp);
+      window.removeEventListener("canvasTemp1", handlePlayerTemp);
     };
-  }, [onCanvasTemp]);
+  }, [onPlayerTemp]);
 
-const [txtPos, setTxtPos] = useState({})
-  const handleReset=()=>{
-    setTxtPos({left: 50,
-      top: 50,
-      scaleX: 1,
-      scaleY: 2,
-      angle: 0,})
-      txtPosition({left: 50,
-        top: 50,
-        scaleX: 1,
-        scaleY: 2,
-        angle: 0,})
+  const handleReset = ()=>{
+    console.log('resetted')
   }
 
   return (
     <>
       <li className={`${showAnswer ? "active" : ""} text-style`}>
-      <h3 onClick={() => handleTab("text-style-layer")}>
-         This is AddText
+        <h3 onClick={() => handleTab("text-style-layer")}>
+          This is AddPlayerName
         </h3>
 
         {showAnswer && (
-          
           <div className="answer-wrap">
             <div className="answer">
               <div className="customize-prod-list scrollbar">
@@ -220,25 +203,24 @@ const [txtPos, setTxtPos] = useState({})
                     <div className="name-number-col">
                       <div className="name-number-info full-width">
                         <div className="input-append field-input">
-                      
-                          <label className="sklble">Add Team Name
-                            <a onClick={handleReset}>Reset</a>
+                          <label className="sklble"> Add Player Name
+                          <a onClick={handleReset}>Reset</a>
                           </label>
                           <input
                             className="span2"
-                            value={inputText}
-                            id="text-string"
+                            value={playerText}
+                            id="player-string"
                             type="text"
                             style={{ color: "#fff" }}
-                            onChange={(e) => setInputText(e.target.value)}
-                            placeholder="add player number here..."
+                            onChange={(e) => setPlayerText(e.target.value)}
+                            placeholder="add player name here..."
                           />
 
-                          <button
+<button
                             id="add-text-string"
                             className="btn btn-submit fieldin"
                             title="Add text"
-                            onClick={handlegettingData}
+                            onClick={handlePlayerData}
                           >
                             Apply <i className="icon-share-alt"></i>
                           </button>
@@ -279,7 +261,6 @@ const [txtPos, setTxtPos] = useState({})
 
                 {showAllColors && (
                   <div className="all-colors">
-                    <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -292,7 +273,6 @@ const [txtPos, setTxtPos] = useState({})
                         onClick={() => handleColorSelection(color)}
                       ></input>
                     ))}
-                  </div>
                   </div>
                 )}
                 <label htmlFor="bold"> Bold</label>
@@ -320,7 +300,6 @@ const [txtPos, setTxtPos] = useState({})
 
                 {showOutlineColors && (
                   <div className="all-colors">
-                    <div className="color-row">
                     {allColors.map((color, index) => (
                       <input
                         type="button"
@@ -334,7 +313,6 @@ const [txtPos, setTxtPos] = useState({})
                       ></input>
                     ))}
                   </div>
-                  </div>
                 )}
               </div>
             </div>
@@ -345,4 +323,4 @@ const [txtPos, setTxtPos] = useState({})
   );
 };
 
-export default AddText;
+export default AddPlayerName;
