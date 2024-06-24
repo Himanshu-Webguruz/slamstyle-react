@@ -3,11 +3,10 @@ import { useState, useEffect } from "react";
 
 import allColors from "../../utils/colors.js";
 
-const AddPlayerNum = ({ getNumValue }) => {
+const AddPlayerNum = ({ getNumValue, numPosition, backNumPosition }) => {
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [numValue, setNumValue] = useState("");
-
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -56,26 +55,6 @@ const AddPlayerNum = ({ getNumValue }) => {
   // for handling selected color
   const handleColorSelection = (color) => {
     setSelectedColor(color);
-  };
-
-  // const [shapeValue, setShapeValue] = useState("Straight");
-  // // shape array for all shapes
-  // const shapeArray = [
-  //   "vertical-arc",
-  //   "center-bulge",
-  //   "bottom-vertical",
-  //   "full-rev-arc",
-  //   "half-asleep-arc",
-  //   "inverse-vertical",
-  //   "Straight",
-  //   "gravity",
-  //   "trajectory",
-  //   "san-diego",
-  //   "breathing-in",
-  // ];
-  // handling shapeValue to set shape
-  const handleOptionChange = () => {
-    setShapeValue(document.getElementById("shape").value);
   };
 
   // state for selected font value from css
@@ -133,7 +112,7 @@ const AddPlayerNum = ({ getNumValue }) => {
 
   useEffect(() => {
     if (numValue) {
-      handlegettingData();
+      handlegettingNum();
     }
   }, [
    
@@ -145,8 +124,8 @@ const AddPlayerNum = ({ getNumValue }) => {
     selectedColor,
   ]);
 
-  const handlegettingData = () => {
-    const textInput = document.getElementById("text-string").value;
+  const handlegettingNum = () => {
+    const textInput = document.getElementById("text-num").value;
     
     const textFont = fontValue;
 
@@ -179,9 +158,10 @@ const AddPlayerNum = ({ getNumValue }) => {
     };
   }, [getNumValue]);
 
-  const handleReset = ()=>{
-    console.log('resetted')
-  }
+  const handleReset = () => {
+    numPosition({ left: 200, top: 100, scaleX: 0.7, scaleY: 0.7, angle: 0 });
+    backNumPosition({ left: 130, top: 150, scaleX: 2, scaleY: 2, angle: 0 });
+  };
 
 
   return (
@@ -202,7 +182,7 @@ const AddPlayerNum = ({ getNumValue }) => {
                           <input
                             className="span2"
                             value={numValue}
-                            id="text-string"
+                            id="text-num"
                             type="number"
                             style={{ color: "#fff" }}
                             onChange={(e) => setNumValue(e.target.value)}
@@ -213,7 +193,7 @@ const AddPlayerNum = ({ getNumValue }) => {
                             id="add-text-string"
                             className="btn btn-submit fieldin"
                             title="Add text"
-                            onClick={handlegettingData}
+                            onClick={handlegettingNum}
                           >
                             Apply <i className="icon-share-alt"></i>
                           </button>

@@ -84,7 +84,7 @@ const AddText = ({ onCanvasTemp, txtPosition }) => {
   }, [shapeValue, fontValue, boldchecked, italicCheck, outlineCheck, selectedOutlineColor, selectedColor]);
 
   const handlegettingData = () => {
-    const textInput = document.getElementById("text-string").value;
+    const textInput = inputText;
     const textShape = shapeValue;
     const textFont = fontValue;
 
@@ -113,12 +113,14 @@ const AddText = ({ onCanvasTemp, txtPosition }) => {
     };
   }, [onCanvasTemp]);
 
-  const [txtPos, setTxtPos] = useState({});
-  const handleReset = () => {
-    const resetPos = { left: 50, top: 50, scaleX: 1, scaleY: 2, angle: 0 };
-    setTxtPos(resetPos);
-    txtPosition(resetPos);
-  };
+  const handleReset=()=>{
+    
+    txtPosition({left: 50,
+      top: 50,
+      scaleX: 1,
+      scaleY: 2,
+      angle: 0,})
+}
 
   return (
     <>

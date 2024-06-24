@@ -1,9 +1,26 @@
-import React, {useRef,useEffect,forwardRef,useImperativeHandle} from "react";
+import React, {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
 
 // here shapeColors and selectedShoulderImage are props so this is selected color and shoulderImage
 const JerseyBack = forwardRef(
-  ({selectedShoulderImage,shapeColors, numVal,backNumPosition,setBackNumPosition,player,backTextPosition,setBackTextPosition,},ref) => {
+  (
+    {
+      selectedShoulderImage,
+      shapeColors,
+      numVal,
+      backNumPosition,
+      setBackNumPosition,
+      player,
+      backTextPosition,
+      setBackTextPosition,
+    },
+    ref
+  ) => {
     // taking the useRef
     const canvasRef = useRef(null);
     const fabricCanvasRef1 = useRef(null);
@@ -197,22 +214,22 @@ const JerseyBack = forwardRef(
       if (numVal) {
         fabric.Image.fromURL(numVal, (img) => {
           img.set({
-          left: backNumPosition.left,
-          top: backNumPosition.top,
-          hasControls: true,
-          fontSize: 60,
-          editable: false,
+            left: backNumPosition.left,
+            top: backNumPosition.top,
+            hasControls: true,
+            fontSize: 60,
+            editable: false,
+          });
+
+          fabricCanvas.add(img);
+          fabricCanvas.setActiveObject(img);
+
+          img.on("modified", () => {
+            const { left, top, scaleX, scaleY, angle } = img;
+
+            setBackNumPosition({ left, top, scaleX, scaleY, angle });
+          });
         });
-
-        fabricCanvas.add(img);
-        fabricCanvas.setActiveObject(img);
-
-        img.on("modified", () => {
-          const { left, top, scaleX, scaleY, angle } = img;
-
-          setBackNumPosition({ left, top, scaleX, scaleY, angle });
-        });
-      });
       }
 
       if (player) {
@@ -242,7 +259,7 @@ const JerseyBack = forwardRef(
       return () => {
         fabricCanvas.dispose();
       };
-    }, [numVal,player]);
+    }, [numVal, player,backNumPosition,backTextPosition]);
 
     useImperativeHandle(ref, () => ({
       captureCanvas: async () => {
@@ -255,10 +272,7 @@ const JerseyBack = forwardRef(
         combinedCanvas.height = mainCanvas.height;
         combinedContext.drawImage(mainCanvas, 0, 0);
 
-        combinedContext.drawImage(
-          fabricCanvas,
-          -10,-10,
-        );
+        combinedContext.drawImage(fabricCanvas, -10, -10);
         const dataURL = combinedCanvas.toDataURL("image/png");
 
         return dataURL;

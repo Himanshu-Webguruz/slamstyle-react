@@ -10,9 +10,8 @@ import Canvas from "./UniformElements/Canvas.jsx";
 
 import AddImages from "./UniformElements/AddImages.jsx";
 
-import { useState, useRef,useEffect } from "react";
+import { useState,useEffect } from "react";
 import AddTeam from "./UniformElements/AddTeam.jsx";
-
 
 export default function CustomisableUniformSlices({
   navigateToFinalForm,
@@ -148,6 +147,41 @@ export default function CustomisableUniformSlices({
     setTextPosition(value)
   }
 
+  const [playerNum, setPlayerNum] = useState({
+    left: 200,
+    top: 100,
+    scaleX: 0.7,
+    scaleY: 0.7,
+    angle: 0,
+  })
+
+  const handleNumPosition=(value)=>{
+    setPlayerNum(value)
+  }
+
+  const [backNum, setBackNum] = useState({
+    left: 130,
+    top: 150,
+    scaleX: 2,
+    scaleY: 2,
+    angle: 0,
+  })
+
+  const handleBackNumPosition=(value)=>{
+    setBackNum(value)
+  }
+
+  const [backText, setBackText] = useState({
+    left: 80,
+    top: 70,
+    scaleX: 1,
+    scaleY: 1,
+    angle: 0,
+  })
+
+  const handleBackTextPosition =(value)=>{
+    setBackText(value)
+  }
 
   return (
     <>
@@ -178,10 +212,13 @@ export default function CustomisableUniformSlices({
                 shapeColor={shapeColor}
                 isOpen={openAccordion==="color-uniform-layer"} onAccordionToggle={()=> handleAccordionToggle("color-uniform-layer")}
               />
-              <AddTeam onCanvasTemp={handleCanvasTemp}
+              <AddTeam   onCanvasTemp={handleCanvasTemp}
                 onPlayerTemp={handlePlayerTemp}
                 getNumValue={handleGetNumValue}
                 txtPosition={handleTxtPosition}
+                numPosition={handleNumPosition}
+                backNumPosition={handleBackNumPosition}
+                backTextPosition={handleBackTextPosition}
               isOpen={openAccordion==="text-style-layer"} onAccordionToggle={()=>handleAccordionToggle("text-style-layer")}
               />
 
@@ -207,6 +244,12 @@ export default function CustomisableUniformSlices({
             jerseyRightRef={jerseyRightRef}
             textPosition={textPosition}
             setTextPosition={setTextPosition}
+            playerNum={playerNum}
+            setPlayerNum={setPlayerNum}
+            backNum={backNum}
+            setBackNum={setBackNum}
+            backText={backText}
+            setBackText={setBackText}
           />
         </div>
       </div>

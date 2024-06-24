@@ -64,7 +64,14 @@ export default function Canvas({
   jerseyLeftRef,
   jerseyRightRef,
   textPosition,
-  setTextPosition
+  setTextPosition,
+  playerNum,
+  setPlayerNum,
+  backNum,
+  setBackNum,
+  backText,
+  setBackText
+  
 }) {
   // this state is for differentiating the tabs
   const [value, setValue] = useState(0);
@@ -81,33 +88,6 @@ export default function Canvas({
     scaleY: 0.4,
     angle: 0,
   });
-
-
-
-  const [numPosition, setNumPosition] = useState({
-    left: 200,
-    top: 100,
-    scaleX: 0.7,
-    scaleY: 0.7,
-    angle: 0,
-  })
-
-  const[backNumPosition, setBackNumPosition] = useState({
-    left: 130,
-    top: 150,
-    scaleX: 3,
-    scaleY: 3,
-    angle: 0,
-  })
-
-  const [backTextPosition, setBackTextPosition] = useState({
-    left: 80,
-    top: 70,
-    scaleX: 1,
-    scaleY: 1,
-    angle: 0,
-  });
-
 
   // this is for handling the tab change
   const handleChange = (event, newValue) => {
@@ -195,21 +175,21 @@ export default function Canvas({
                 <div className="customize-view__image" id="html-content-holder">
                   <TabPanel value={value} index={0}>
                     <JerseyFront
-                      ref={jerseyFrontRef}
-                      canvasTemp={canvasTemp}
-                      shapeColors={shapeColor}
-                      selectedNeckImage={selectedNeckImage}
-                      selectedShoulderImage={
-                        selectedShoulderImage.frontassociate
-                      }
-                      selectedImage={selectedImage}
-                      imagePosition={imagePosition}
-                      setImagePosition={setImagePosition}
-                      textPosition={textPosition}
-                      setTextPosition={setTextPosition}
-                      numVal={numVal}
-                      numPosition={numPosition}
-                      setNumPosition={setNumPosition}
+                       ref={jerseyFrontRef}
+                       canvasTemp={canvasTemp}
+                       shapeColors={shapeColor}
+                       selectedNeckImage={selectedNeckImage}
+                       selectedShoulderImage={
+                         selectedShoulderImage.frontassociate
+                       }
+                       selectedImage={selectedImage}
+                       imagePosition={imagePosition}
+                       setImagePosition={setImagePosition}
+                       textPosition={textPosition}
+                       setTextPosition={setTextPosition}
+                       numVal={numVal}
+                       numPosition={playerNum}
+                       setNumPosition={setPlayerNum}
                     />
                   </TabPanel>
                   <TabPanel value={value} index={1}>
@@ -220,11 +200,11 @@ export default function Canvas({
                         selectedShoulderImage.backassociate
                       }
                       numVal={numVal}
-                      backNumPosition={backNumPosition}
-                      setBackNumPosition={setBackNumPosition}
+                      backNumPosition={backNum}
+                      setBackNumPosition={setBackNum}
                       player={player}
-                      backTextPosition={backTextPosition}
-                      setBackTextPosition={setBackTextPosition}
+                      backTextPosition={backText}
+                      setBackTextPosition={setBackText}
                     />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
@@ -337,23 +317,22 @@ export default function Canvas({
                    textPosition={textPosition}
                    setTextPosition={setTextPosition}
                    numVal={numVal}
-                   numPosition={numPosition}
-                   setNumPosition={setNumPosition}
-                 />
-                 
-                  <JerseyBack
+                   numPosition={playerNum}
+                   setNumPosition={setPlayerNum}
+                />
+                <JerseyBack
                   ref={jerseyBackRef}
                   shapeColors={shapeColor}
                   selectedShoulderImage={
                     selectedShoulderImage.backassociate
                   }
                   numVal={numVal}
-                  backNumPosition={backNumPosition}
-                  setBackNumPosition={setBackNumPosition}
+                  backNumPosition={backNum}
+                  setBackNumPosition={setBackNum}
                   player={player}
-                  backTextPosition={backTextPosition}
-                  setBackTextPosition={setBackTextPosition}
-                  />
+                  backTextPosition={backText}
+                  setBackTextPosition={setBackText}
+                />
                   <JerseyLeft
                   ref={jerseyLeftRef}
                     shapeColors={shapeColor}

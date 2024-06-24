@@ -1,7 +1,11 @@
-import React, { useRef, useEffect,forwardRef, useImperativeHandle } from "react";
+import React, {
+  useRef,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import JerseyCustomisableData from "../../utils/jerseyCustomisableData.js";
-const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
-  
+const JerseyRight = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
   const jersyNum = localStorage.getItem("selectedJersy");
   const rightsideStripes = `assets/jerseys/${jersyNum}/slicings/rightside-stripes.png`;
   const rightsideShoulder = `assets/jerseys/${jersyNum}/slicings/rightside-shoulder.png`;
@@ -9,7 +13,7 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
 
   let shirtImagebg = ``;
 
-  if (selectedvorNovImg.includes('crew_rightside')) {
+  if (selectedvorNovImg.includes("crew_rightside")) {
     shirtImagebg = `assets/jerseys/${jersyNum}/slicings/crew_rightsidebg.png`;
   } else {
     shirtImagebg = `assets/jerseys/${jersyNum}/slicings/crew_noV_rightsidebg.png`;
@@ -17,12 +21,12 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
 
   const canvasRef = useRef(null);
 
-   // getting all the stripes based on uniform layers
-   const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
+  // getting all the stripes based on uniform layers
+  const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
 
-     // storing all the stripes in the stripeImages array
+  // storing all the stripes in the stripeImages array
   const stripeImages = [];
-  for (let i = 2; i < stripesNum ; i++) {
+  for (let i = 2; i < stripesNum; i++) {
     stripeImages.push(
       `assets/jerseys/${jersyNum}/slicings/rightside-stripes-${i}.png`
     );
@@ -46,16 +50,22 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
 
     const drawImages = async () => {
       try {
-        const [rightImg, rightSideStripesImg, rightSideShoulderImg, rightSideCollarImg, shirtImgBg, ...additionalStripes] =
-          await Promise.all([
-            loadImages(selectedvorNovImg),
-            loadImages(rightsideStripes),
-            loadImages(rightsideShoulder),
-            loadImages(rightsideCollar),
-            loadImages(shirtImagebg),
-            // loading all the images one by one from the stripeImages array
+        const [
+          rightImg,
+          rightSideStripesImg,
+          rightSideShoulderImg,
+          rightSideCollarImg,
+          shirtImgBg,
+          ...additionalStripes
+        ] = await Promise.all([
+          loadImages(selectedvorNovImg),
+          loadImages(rightsideStripes),
+          loadImages(rightsideShoulder),
+          loadImages(rightsideCollar),
+          loadImages(shirtImagebg),
+          // loading all the images one by one from the stripeImages array
           ...stripeImages.map((src) => loadImages(src)),
-          ]);
+        ]);
 
         context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -64,8 +74,6 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
         let imageData = context.getImageData(10, 0, 300, 600);
         imageData = changeColor(imageData, shapeColors.shirt1);
         context.putImageData(imageData, 10, 0);
-
-        
 
         // Draw other default images
         const defaultImages = [
@@ -77,7 +85,7 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
           {
             image: rightSideCollarImg,
             color: shapeColors.neck1,
-            position:[10,0],
+            position: [10, 0],
           },
 
           {
@@ -87,7 +95,7 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
           },
         ];
 
-         // now adding all the additional stripes to my Images array so that it can used inside
+        // now adding all the additional stripes to my Images array so that it can used inside
         // the temporary canvas
         additionalStripes.forEach((stripeImg, index) => {
           // starting with 3 bcz we already have base image and 1 stripe
@@ -99,27 +107,26 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
           });
         });
 
-
-        defaultImages.forEach(({ image,color, position }) => {
+        defaultImages.forEach(({ image, color, position }) => {
           const tempCanvas = document.createElement("canvas");
           tempCanvas.width = 300;
           tempCanvas.height = 600;
           const tempContext = tempCanvas.getContext("2d");
           tempContext.drawImage(image, 0, 0, 300, 600);
-          let tempImageData = tempContext.getImageData(0, 0, 300, 600);  
+          let tempImageData = tempContext.getImageData(0, 0, 300, 600);
           tempImageData = changeColor(tempImageData, color);
           tempContext.putImageData(tempImageData, 0, 0);
           context.drawImage(tempCanvas, ...position);
         });
 
-        context.drawImage(shirtImgBg,10,0,300,600)
+        context.drawImage(shirtImgBg, 10, 0, 300, 600);
       } catch (error) {
         console.error("Error loading images:", error);
       }
     };
 
     drawImages();
-  }, [selectedvorNovImg,shapeColors]);
+  }, [selectedvorNovImg, shapeColors]);
 
   const changeColor = (imageData, color) => {
     const { data } = imageData;
@@ -133,22 +140,14 @@ const JerseyRight = forwardRef(({ selectedvorNovImg,shapeColors },ref) => {
     return imageData;
   };
 
-
-  useImperativeHandle(ref,()=>({
-    captureCanvas: async()=>{
+  useImperativeHandle(ref, () => ({
+    captureCanvas: async () => {
       const canvas = canvasRef.current;
       const dataUrl = canvas.toDataURL("images/png");
       return dataUrl;
-    }
-  }))
-  return (
-    <canvas
-      ref={canvasRef}
-      width={300}
-      height={600}
-      
-    />
-  );
+    },
+  }));
+  return <canvas ref={canvasRef} width={300} height={600} />;
 });
 
 export default JerseyRight;

@@ -3,17 +3,7 @@ import { useState, useEffect } from "react";
 
 import allColors from "../../utils/colors.js";
 
-const AddPlayerName = ({ onPlayerTemp }) => {
-  // this state is for showing/hiding the tab of AddText
-  const [showAnswer, setShowAnswer] = useState(false);
-  const handleTab = (tabName) => {
-    if (tabName === "text-style-layer") {
-      setShowAnswer(!showAnswer);
-    }
-  };
-
-  // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
   const [boldchecked, setBoldchecked] = useState(false);
   const handleBoldCheck = (e) => {
     setBoldchecked(e.target.checked);
@@ -46,8 +36,6 @@ const AddPlayerName = ({ onPlayerTemp }) => {
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-  
-
   // state for showing and hiding color palette
   const [showAllColors, setShowAllColors] = useState(false);
   // fir showing/hiding colors
@@ -76,8 +64,6 @@ const AddPlayerName = ({ onPlayerTemp }) => {
     "half-asleep-arc",
     "inverse-vertical",
     "Straight",
-    "gravity",
-    "trajectory",
     "san-diego",
     "breathing-in",
   ];
@@ -144,17 +130,24 @@ const AddPlayerName = ({ onPlayerTemp }) => {
   // this is handled when Apply button is clicked, it will call svgpathfunc from custom.js and
   // pass value dynamically from here
 
-
-  const [playerText,setPlayerText] = useState("")
+  const [playerText, setPlayerText] = useState("");
 
   useEffect(() => {
     if (playerText) {
       handlePlayerData();
     }
-  }, [shapeValue, fontValue, boldchecked, italicCheck, outlineCheck, selectedOutlineColor, selectedColor]);
-  
-  const handlePlayerData=()=>{
-    const textInput =  document.getElementById("player-string").value;
+  }, [
+    shapeValue,
+    fontValue,
+    boldchecked,
+    italicCheck,
+    outlineCheck,
+    selectedOutlineColor,
+    selectedColor,
+  ]);
+
+  const handlePlayerData = () => {
+    const textInput = document.getElementById("player-string").value;
     const textShape = shapeValue;
     const textFont = fontValue;
 
@@ -169,7 +162,7 @@ const AddPlayerName = ({ onPlayerTemp }) => {
       textShape,
       italicCheck
     );
-  }
+  };
 
   useEffect(() => {
     const handlePlayerTemp = () => {
@@ -183,142 +176,128 @@ const AddPlayerName = ({ onPlayerTemp }) => {
     };
   }, [onPlayerTemp]);
 
-  const handleReset = ()=>{
-    console.log('resetted')
-  }
+  const handleReset = () => {
+    backTextPosition({ left: 80, top: 70, scaleX: 1, scaleY: 1, angle: 0 });
+  };
 
   return (
     <>
-      <li className={`${showAnswer ? "active" : ""} text-style`}>
-        <h3 onClick={() => handleTab("text-style-layer")}>
-          This is AddPlayerName
-        </h3>
+      <div className="answer-wrap">
+        <div className="answer">
+          <div className="customize-prod-list scrollbar">
+            <div className="wraper">
+              <div className="name-number-row">
+                <div className="name-number-col">
+                  <div className="name-number-info full-width">
+                    <div className="input-append field-input">
+                      <label className="sklble">
+                        {" "}
+                        Add Player Name
+                        <a onClick={handleReset}>Reset</a>
+                      </label>
+                      <input
+                        className="span2"
+                        value={playerText}
+                        id="player-string"
+                        type="text"
+                        style={{ color: "#fff" }}
+                        onChange={(e) => setPlayerText(e.target.value)}
+                        placeholder="add player name here..."
+                      />
 
-        {showAnswer && (
-          <div className="answer-wrap">
-            <div className="answer">
-              <div className="customize-prod-list scrollbar">
-                <div className="wraper">
-                  <div className="name-number-row">
-                    <div className="name-number-col">
-                      <div className="name-number-info full-width">
-                        <div className="input-append field-input">
-                          <label className="sklble"> Add Player Name
-                          <a onClick={handleReset}>Reset</a>
-                          </label>
-                          <input
-                            className="span2"
-                            value={playerText}
-                            id="player-string"
-                            type="text"
-                            style={{ color: "#fff" }}
-                            onChange={(e) => setPlayerText(e.target.value)}
-                            placeholder="add player name here..."
-                          />
-
-<button
-                            id="add-text-string"
-                            className="btn btn-submit fieldin"
-                            title="Add text"
-                            onClick={handlePlayerData}
-                          >
-                            Apply <i className="icon-share-alt"></i>
-                          </button>
-                        </div>
-                      </div>
+                      <button
+                        id="add-text-string"
+                        className="btn btn-submit fieldin"
+                        title="Add text"
+                        onClick={handlePlayerData}
+                      >
+                        Apply <i className="icon-share-alt"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
-                <select
-                  onChange={handleOptionChange}
-                  value={shapeValue}
-                  id="shape"
-                >
-                  {shapeArray.map((item, id) => (
-                    <option key={id} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                <select onChange={handleFontChange} value={fontValue} id="font">
-                  {fontArray.map((fontKey, id) => (
-                    <option
-                      key={id}
-                      value={fontKey}
-                      style={{ fontFamily: fontKey }}
-                    >
-                      {fontMapping[fontKey].split("/").pop().split(".")[0]}
-                    </option>
-                  ))}
-                </select>
-
-                <input
-                  type="button"
-                  className="toggle-colors-btn"
-                  onClick={toggleAllColors}
-                  style={{ height: "30px", width: "30px" }}
-                />
-
-                {showAllColors && (
-                  <div className="all-colors">
-                    {allColors.map((color, index) => (
-                      <input
-                        type="button"
-                        key={index}
-                        style={{
-                          backgroundColor: color,
-                          height: "15px",
-                          width: "15px",
-                        }}
-                        onClick={() => handleColorSelection(color)}
-                      ></input>
-                    ))}
-                  </div>
-                )}
-                <label htmlFor="bold"> Bold</label>
-                <input id="bold" type="checkbox" onChange={handleBoldCheck} />
-
-                <label htmlFor="italic"> Italic</label>
-                <input
-                  id="italic"
-                  type="checkbox"
-                  onChange={handleItalicCheck}
-                />
-                <label htmlFor="outline"> Outline</label>
-                <input
-                  id="outline"
-                  type="checkbox"
-                  onChange={handleOutlineCheck}
-                />
-
-                <input
-                  type="button"
-                  className="toggle-colors-btn"
-                  onClick={toggleOutlineColors}
-                  style={{ height: "30px", width: "30px" }}
-                />
-
-                {showOutlineColors && (
-                  <div className="all-colors">
-                    {allColors.map((color, index) => (
-                      <input
-                        type="button"
-                        key={index}
-                        style={{
-                          backgroundColor: color,
-                          height: "15px",
-                          width: "15px",
-                        }}
-                        onClick={() => handleOutlineColorSelection(color)}
-                      ></input>
-                    ))}
-                  </div>
-                )}
               </div>
             </div>
+            <select onChange={handleOptionChange} value={shapeValue} id="shape">
+              {shapeArray.map((item, id) => (
+                <option key={id} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+            <select onChange={handleFontChange} value={fontValue} id="font">
+              {fontArray.map((fontKey, id) => {
+                const fontName = fontMapping[fontKey]
+                  ? fontMapping[fontKey].split("/").pop().split(".")[0]
+                  : fontKey;
+                return (
+                  <option
+                    key={id}
+                    value={fontKey}
+                    style={{ fontFamily: fontKey }}
+                  >
+                    {fontName}
+                  </option>
+                );
+              })}
+            </select>
+            <input
+              type="button"
+              className="toggle-colors-btn"
+              onClick={toggleAllColors}
+              style={{ height: "30px", width: "30px" }}
+            />
+
+            {showAllColors && (
+              <div className="all-colors">
+                {allColors.map((color, index) => (
+                  <input
+                    type="button"
+                    key={index}
+                    style={{
+                      backgroundColor: color,
+                      height: "15px",
+                      width: "15px",
+                    }}
+                    onClick={() => handleColorSelection(color)}
+                  ></input>
+                ))}
+              </div>
+            )}
+            <label htmlFor="bold"> Bold</label>
+            <input id="bold" type="checkbox" onChange={handleBoldCheck} />
+
+            <label htmlFor="italic"> Italic</label>
+            <input id="italic" type="checkbox" onChange={handleItalicCheck} />
+            <label htmlFor="outline"> Outline</label>
+            <input id="outline" type="checkbox" onChange={handleOutlineCheck} />
+
+            <input
+              type="button"
+              className="toggle-colors-btn"
+              onClick={toggleOutlineColors}
+              style={{ height: "30px", width: "30px" }}
+            />
+
+            {showOutlineColors && (
+              <div className="all-colors">
+                {allColors.map((color, index) => (
+                  <input
+                    type="button"
+                    key={index}
+                    style={{
+                      backgroundColor: color,
+                      height: "15px",
+                      width: "15px",
+                    }}
+                    onClick={() => handleOutlineColorSelection(color)}
+                  ></input>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </li>
+        </div>
+      </div>
     </>
   );
 };
