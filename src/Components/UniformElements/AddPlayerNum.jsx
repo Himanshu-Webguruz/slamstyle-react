@@ -69,7 +69,7 @@ const AddPlayerNum = ({ getNumValue, numPosition, backNumPosition }) => {
 
   // handling fontchange
   const handleFontChange = () => {
-    setFontValue(document.getElementById("font").value);
+    setFontValue(document.getElementById("font2").value);
   };
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -202,7 +202,7 @@ const AddPlayerNum = ({ getNumValue, numPosition, backNumPosition }) => {
                     </div>
                   </div>
                 </div>
-                <select onChange={handleFontChange} value={fontValue} id="font">
+                <select onChange={handleFontChange} value={fontValue} id="font2">
                 {fontArray.map((fontKey, id) => {
                   const fontName = fontMapping[fontKey] ? fontMapping[fontKey].split("/").pop().split(".")[0] : fontKey;
                   return (

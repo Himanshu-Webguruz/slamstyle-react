@@ -54,7 +54,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   // state for select option for shapes
-  const [shapeValue, setShapeValue] = useState("Straight");
+  const [shapeValue, setShapeValue] = useState("breathing-in");
   // shape array for all shapes
   const shapeArray = [
     "vertical-arc",
@@ -69,7 +69,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
   ];
   // handling shapeValue to set shape
   const handleOptionChange = () => {
-    setShapeValue(document.getElementById("shape").value);
+    setShapeValue(document.getElementById("shape1").value);
   };
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -85,7 +85,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
 
   // handling fontchange
   const handleFontChange = () => {
-    setFontValue(document.getElementById("font").value);
+    setFontValue(document.getElementById("font1").value);
   };
 
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -147,7 +147,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
   ]);
 
   const handlePlayerData = () => {
-    const textInput = document.getElementById("player-string").value;
+    const textInput = playerText;
     const textShape = shapeValue;
     const textFont = fontValue;
 
@@ -217,14 +217,14 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
                 </div>
               </div>
             </div>
-            <select onChange={handleOptionChange} value={shapeValue} id="shape">
+            <select onChange={handleOptionChange} value={shapeValue} id="shape1">
               {shapeArray.map((item, id) => (
                 <option key={id} value={item}>
                   {item}
                 </option>
               ))}
             </select>
-            <select onChange={handleFontChange} value={fontValue} id="font">
+            <select onChange={handleFontChange} value={fontValue} id="font1">
               {fontArray.map((fontKey, id) => {
                 const fontName = fontMapping[fontKey]
                   ? fontMapping[fontKey].split("/").pop().split(".")[0]

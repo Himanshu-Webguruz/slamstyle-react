@@ -55,7 +55,14 @@ const AddTeam = ({
 
         {isOpen && (
           <div className="answer-wrap">
+            
             <div>
+               <AddPlayerName
+                          onPlayerTemp={onPlayerTemp}
+                          backTextPosition={backTextPosition}
+                        />
+                         
+            </div> <div>
               <AddText onCanvasTemp={onCanvasTemp} txtPosition={txtPosition} />
             </div>
             <div>
@@ -64,14 +71,7 @@ const AddTeam = ({
                           numPosition={numPosition}
                           backNumPosition={backNumPosition}
                         /> 
-            </div>
-            <div>
-               <AddPlayerName
-                          onPlayerTemp={onPlayerTemp}
-                          backTextPosition={backTextPosition}
-                        />
-                         
-            </div>
+            </div> 
           </div>
         )}
       </li>
