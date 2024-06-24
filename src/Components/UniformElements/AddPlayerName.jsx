@@ -182,7 +182,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
 
   return (
     <>
-      <div className="answer-wrap">
+      <div className="text-style">
         <div className="answer">
           <div className="customize-prod-list scrollbar">
             <div className="wraper">
@@ -191,7 +191,6 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
                   <div className="name-number-info full-width">
                     <div className="input-append field-input">
                       <label className="sklble">
-                        {" "}
                         Add Player Name
                         <a onClick={handleReset}>Reset</a>
                       </label>
@@ -241,15 +240,18 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
                 );
               })}
             </select>
-            <input
-              type="button"
-              className="toggle-colors-btn"
-              onClick={toggleAllColors}
-              style={{ height: "30px", width: "30px" }}
-            />
+            <div style={{display: 'block'}}>
+              <input
+                type="button"
+                className="toggle-colors-btn"
+                onClick={toggleAllColors}
+                style={{ height: "30px", width: "30px" }}
+              /> Name Color
+            </div>
 
             {showAllColors && (
               <div className="all-colors">
+                <div className="color-row" style={{display:"block"}}>
                 {allColors.map((color, index) => (
                   <input
                     type="button"
@@ -263,21 +265,28 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
                   ></input>
                 ))}
               </div>
+              </div>
             )}
-            <label htmlFor="bold"> Bold</label>
-            <input id="bold" type="checkbox" onChange={handleBoldCheck} />
-
-            <label htmlFor="italic"> Italic</label>
-            <input id="italic" type="checkbox" onChange={handleItalicCheck} />
-            <label htmlFor="outline"> Outline</label>
-            <input id="outline" type="checkbox" onChange={handleOutlineCheck} />
-
-            <input
-              type="button"
-              className="toggle-colors-btn"
-              onClick={toggleOutlineColors}
-              style={{ height: "30px", width: "30px" }}
-            />
+            <div className="labelMerge">
+              <label htmlFor="bold"> Bold</label>
+              <input id="bold" type="checkbox" onChange={handleBoldCheck} />
+              </div>
+              <div className="labelMerge">
+              <label htmlFor="italic"> Italic</label>
+              <input id="italic" type="checkbox" onChange={handleItalicCheck} />
+              </div>
+              <div className="labelMerge">
+              <label htmlFor="outline"> Outline</label>
+              <input id="outline" type="checkbox" onChange={handleOutlineCheck} />
+              </div>
+              <div style={{display: 'block'}}>
+              <input
+                type="button"
+                className="toggle-colors-btn"
+                onClick={toggleOutlineColors}
+                style={{ height: "30px", width: "30px" }}
+              />
+</div>
 
             {showOutlineColors && (
               <div className="all-colors">

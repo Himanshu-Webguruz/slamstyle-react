@@ -11,6 +11,9 @@ export const Steps = ({ gettingdata, activeStateProp }) => {
       // Prevent navigation to Customize or Finalize if current step is Select
       return;
     }
+    else if(step>2 && activeState==2){
+      return
+    }
     gettingdata(step);
     setActiveState(step);
   };
@@ -35,7 +38,9 @@ export const Steps = ({ gettingdata, activeStateProp }) => {
             </div>
           </a>
         </li>
-        <li className={`navthree ${activeState === 3 ? "active" : ""} ${activeState === 1 ? "disabled" : ""}`}>
+        <li className={`navthree ${activeState === 3 ? "active" : ""} ${activeState === 1 ? "disabled" : ""} ${
+          activeState===2 ?"disabled":""
+        } `}>
           <a onClick={() => handleStepClick(3)}>
             <div className="step-tab">
               <h3 className="step-tab-name-mob">Finalize</h3>
