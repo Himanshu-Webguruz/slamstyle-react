@@ -54,7 +54,7 @@ const AddPlayerName = ({ onPlayerTemp, backTextPosition }) => {
   // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
   // state for select option for shapes
-  const [shapeValue, setShapeValue] = useState("breathing-in");
+  const [shapeValue, setShapeValue] = useState("Straight");
   // shape array for all shapes
   const shapeArray = [
     "vertical-arc",
