@@ -258,6 +258,8 @@ const JerseyFront = forwardRef(
         width: 300,
         height: 600,
       });
+      //to remove fabric from pdf
+      fabricCanvasRef1.current.fabricInstance = fabricCanvas;
 
       if (canvasTemp) {
         fabric.Image.fromURL(canvasTemp, (img) => {
@@ -343,32 +345,50 @@ const JerseyFront = forwardRef(
     // using this we allow our parent i.e canvas to have excess to this means parent is getting the whole final
     // image
     useImperativeHandle(ref, () => ({
-      // here captureCanvas is the name of function which will be called from its parent component.
-
+      // Function to capture the canvas
       captureCanvas: async () => {
         const mainCanvas = canvasRef.current;
-        const fabricCanvas = fabricCanvasRef1.current;
-
+        const fabricCanvas = fabricCanvasRef1.current.fabricInstance;
+    
+        if (!fabricCanvas) {
+          console.error('Fabric.js canvas is not initialized');
+          return;
+        }
+    
+        // Temporarily hide the control points
+        fabricCanvas.getObjects().forEach((obj) => {
+          obj.set('hasControls', false);
+          obj.set('selectable', false);
+          obj.set('hasBorders',false);
+        });
+    
+        // Render the canvas without control points
+        fabricCanvas.renderAll();
+    
         const combinedCanvas = document.createElement("canvas");
         const combinedContext = combinedCanvas.getContext("2d");
-
+    
         combinedCanvas.width = 375;
         combinedCanvas.height = 745;
         combinedContext.drawImage(mainCanvas, 0, 0);
-
-        combinedContext.drawImage(
-          fabricCanvas,
-          0,
-          0
-          // imagePosition.scaleX * mainCanvas.width,
-          // imagePosition.scaleY * mainCanvas.height
-        );
-
+        combinedContext.drawImage(fabricCanvas.lowerCanvasEl, 0, 0);
+    
         const dataURL = combinedCanvas.toDataURL("image/png");
-
+    
+        // Restore the control points
+        fabricCanvas.getObjects().forEach((obj) => {
+          obj.set('hasControls', true);
+          obj.set('selectable', true);
+          obj.set('hasBorders',true);
+        });
+    
+        // Re-render the canvas with control points
+        fabricCanvas.renderAll();
+    
         return dataURL;
       },
     }));
+
 
     return (
       <div style={{ position: "relative", width: 300, height: 600 }}>

@@ -154,8 +154,8 @@ const FinalForm = () => {
       pdf.setTextColor(200);
       const pageHeight = pdf.internal.pageSize.height;
       const watermarkText = "1300251107||Slamstyle";
-      const textHeight = 14 / pdf.internal.scaleFactor;
-      pdf.text(watermarkText, 50, (pageHeight - textHeight) / 2, null, 45);
+      const textHeight = -404 / pdf.internal.scaleFactor;
+      pdf.text(watermarkText, 40, (pageHeight - textHeight) / 2, null, 40);
     }
     // for saving the pdf with specified name
     pdf.save("jersey_design.pdf");

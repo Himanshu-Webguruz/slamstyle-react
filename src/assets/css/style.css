@@ -796,11 +796,13 @@ div#ranges {
     background: #dddada;
     border-radius: 10px;
     overflow: hidden;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     cursor: pointer;
 }
-
+ul.accordion-list li.choose-v .answer-wrap {
+    padding: 20px 0px !important;
+}
 .customize-uniform .customize-layout .customize-option ul.accordion-list>li.shoulder-type .wraper .customize-info .info img,
 .customize-uniform .customize-layout .customize-option ul.accordion-list>li.choose-v .wraper .customize-info .info img,
 .customize-uniform .customize-layout .customize-option ul.accordion-list>li.meterial-type .wraper .customize-info .info img {
@@ -931,15 +933,22 @@ div#ranges {
     padding-left: 0px;
 }
 body::-webkit-scrollbar-track,
-.color-row::-webkit-scrollbar-track  {
+.color-row::-webkit-scrollbar-track,
+ul.accordion-list.list-unstyled li.text-style .answer-wrap::-webkit-scrollbar-track,
+.customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v .answer-wrap::-webkit-scrollbar-track,
+.customize-uniform .customize-layout .customize-option ul.accordion-list>li.neck-style .answer-wrap .answer::-webkit-scrollbar-track,  .customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer-wrap::-webkit-scrollbar-track  {
     background-color: #66431a;
 }
 body::-webkit-scrollbar-thumb,
-.color-row::-webkit-scrollbar-thumb {
+.color-row::-webkit-scrollbar-thumb,
+ul.accordion-list.list-unstyled li.text-style .answer-wrap::-webkit-scrollbar-thumb,
+.customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v .answer-wrap::-webkit-scrollbar-thumb,
+.customize-uniform .customize-layout .customize-option ul.accordion-list>li.neck-style .answer-wrap .answer::-webkit-scrollbar-thumb,  .customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer-wrap::-webkit-scrollbar-thumb {
     background-color: #feefef;
 }
 body::-webkit-scrollbar,
-.color-row::-webkit-scrollbar{
+.color-row::-webkit-scrollbar,ul.accordion-list.list-unstyled li.text-style .answer-wrap::-webkit-scrollbar,
+.customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v .answer-wrap::-webkit-scrollbar, .customize-uniform .customize-layout .customize-option ul.accordion-list>li.neck-style .answer-wrap .answer::-webkit-scrollbar,  .customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer-wrap::-webkit-scrollbar{
     width: 4px;
 }
 .merge-two-layers .color-row, .customize-prod-list.scrollbar .all-colors .color-row {
@@ -1460,7 +1469,9 @@ h3.forMob svg {
 button:focus, button:focus-visible {
     outline: unset !important;
 }
-
+.customize-prod-list.scrollbar div input.toggle-colors-btn {
+    margin-right: 8px;
+}
 /* Media Query */
 /* Min Width */
 
@@ -1615,7 +1626,7 @@ button:focus, button:focus-visible {
         background-color: #1a1a1a;
         border-top: 7px solid #f6931e;
         top: auto;
-        padding: 0px 0px 0px;
+        padding: 0px 0px 0px !important;
     }
     .customize-info {
         margin: 0px !important;
@@ -1734,19 +1745,19 @@ button:focus, button:focus-visible {
         top: 0;
         right: 18px;
     }
-    .customize-uniform .customize-layout .customize-option ul.accordion-list>li.text-style .answer-wrap .answer,
     .customize-uniform .customize-layout .customize-option ul.accordion-list>li.neck-style .answer-wrap .answer,
-    .customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer{
+    .customize-uniform .customize-layout .customize-option ul.accordion-list li.color-uniform .answer-wrap{
         height: 236px;
         overflow: auto;
     }
-    
+    .customize-uniform .customize-layout .customize-option ul.accordion-list li.text-style .answer-wrap {
+        height: 320px;
+        overflow-y: auto;
+    }
 }
 
 @media screen and (max-width:767px) {
-    .scrollbar::-webkit-scrollbar {
-        width: 4px;
-    }
+   
     .customize-uniform {
         padding: 0px;
     }
@@ -1912,6 +1923,20 @@ section.custom-uniform {
         padding-bottom: 0px;
         height: 100vh;
     }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v.active .customize-prod-list.scrollbar {
+        flex-direction: column;
+    }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v .answer-wrap {
+        height: 290px;
+        overflow-y: auto;
+    }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v.active .customize-prod-list.scrollbar >div {
+        width: 100%;
+        margin: 0px 0px 14px 0px;
+    }
+    .customize-uniform .customize-layout .customize-option ul.accordion-list>li.choose-v .info-group figure figcaption{
+        width: 100%;
+    }
     /* 22/12/2023 CSS Ends Here */
 }
 
@@ -1953,10 +1978,6 @@ section.custom-uniform {
         max-height: none;
     }
    
-    .customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v.active .customize-prod-list.scrollbar >div {
-        width: 50%;
-        margin: 0px;
-    }
     .customize-uniform .customize-layout .customize-option ul.accordion-list li.choose-v.active .customize-prod-list.scrollbar{
         column-gap: 0px;
     }
@@ -1965,7 +1986,6 @@ section.custom-uniform {
     }
     .customize-uniform .customize-layout .customize-option ul.accordion-list>li.choose-v .info-group figure figcaption {
         font-size: 12px !important;
-        width: 43px;
         margin: 0 auto 12px;
     }
 
