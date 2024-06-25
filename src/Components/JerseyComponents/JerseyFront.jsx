@@ -340,7 +340,7 @@ const JerseyFront = forwardRef(
       return () => {
         fabricCanvas.dispose();
       };
-    }, [canvasTemp, selectedImage, numVal, textPosition, numPosition,imagePosition ]);
+    }, [canvasTemp, selectedImage, numVal, textPosition, numPosition ]);
 
     // using this we allow our parent i.e canvas to have excess to this means parent is getting the whole final
     // image
