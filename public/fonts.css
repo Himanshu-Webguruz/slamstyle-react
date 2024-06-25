@@ -1,6 +1,8 @@
 @font-face {
   font-family: "SS0";
-  src: url("Fonts/AACHENB.TTF");
+  src: url("Fonts/AACHENB.woff2") format('woff2'),
+       url("Fonts/AACHENB.woff") format('woff'),
+       url("Fonts/AACHENB.ttf") format('truetype');
 }
 @font-face {
   font-family: "SS1";
