@@ -22,7 +22,7 @@ const JerseyRight = forwardRef(({ selectedvorNovImg, shapeColors }, ref) => {
   const canvasRef = useRef(null);
 
   // getting all the stripes based on uniform layers
-  const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
+  const stripesNum = JerseyCustomisableData[jersyNum].right_layers;
 
   // storing all the stripes in the stripeImages array
   const stripeImages = [];

@@ -94,7 +94,7 @@ export default function CustomisableUniformSlices({
     shirt3: jerseyData.sl2,
     shirt4: jerseyData.sl3,
     shirt5: jerseyData.sl4,
-    shirt6: "#680f29",
+    shirt6: jerseyData.sl5,
     shirt7: "#170fe8",
     shirt8: "#66077e",
     shirt9: "#f88f37",

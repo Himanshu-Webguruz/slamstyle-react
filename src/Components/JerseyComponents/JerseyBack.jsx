@@ -42,7 +42,7 @@ const JerseyBack = forwardRef(
     const shirtBg = `assets/jerseys/${jersyNum}/slicings/crew_back_narrow_shoulderbg.png`;
 
     // getting all the stripes based on uniform layers for particular selected Jersey
-    const stripesNum = JerseyCustomisableData[jersyNum].uniform_layers;
+    const stripesNum = JerseyCustomisableData[jersyNum].back_layers;
 
     // getting all common backstripe and backcollar image
     const backStripes = `assets/jerseys/${jersyNum}/slicings/back-stripes.png`;
