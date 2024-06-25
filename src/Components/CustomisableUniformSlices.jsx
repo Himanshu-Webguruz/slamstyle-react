@@ -91,9 +91,9 @@ export default function CustomisableUniformSlices({
   const [shapeColor, setShapeColor] = useState({
     shirt1: jerseyData.mc,
     shirt2: jerseyData.stc,
-    shirt3: "#9723d9",
-    shirt4: "#f863c1",
-    shirt5: "#7033c3",
+    shirt3: jerseyData.sl2,
+    shirt4: jerseyData.sl3,
+    shirt5: jerseyData.sl4,
     shirt6: "#680f29",
     shirt7: "#170fe8",
     shirt8: "#66077e",
