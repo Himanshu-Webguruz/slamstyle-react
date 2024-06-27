@@ -95,14 +95,14 @@ export default function CustomisableUniformSlices({
     shirt4: jerseyData.sl3,
     shirt5: jerseyData.sl4,
     shirt6: jerseyData.sl5,
-    shirt7: "#170fe8",
-    shirt8: "#66077e",
+    shirt7: jerseyData.sl6,
+    shirt8: jerseyData.sl7,
     shirt9: "#f88f37",
     shirt10: "#b54235",
     neck1: jerseyData.cc,
     neck2: jerseyData.clc,
     shoulder1: jerseyData.sc,
-    shoulder2: "#48d2dd",
+    shoulder2: jerseyData.cl2,
   });
 
   // callback function for getting selected color from child component

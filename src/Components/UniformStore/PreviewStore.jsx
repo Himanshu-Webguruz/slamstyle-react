@@ -87,6 +87,7 @@ import jerseyPreviews86 from "../../assets/images/uniform-previews/OUD-86.png";
 import jerseyPreviews87 from "../../assets/images/uniform-previews/OUD-87.png";
 import jerseyPreviews88 from "../../assets/images/uniform-previews/OUD-88.png";
 import jerseyPreviews89 from "../../assets/images/uniform-previews/OUD-89.png";
+import jerseyPreviews90 from "../../assets/images/uniform-previews/OUD-90.png";
 
 const jerseyPreviewsList = [
   { id: 1, src: jerseyPreviews1, alt: "Preview 1" },
@@ -178,6 +179,7 @@ const jerseyPreviewsList = [
   { id: 87, src: jerseyPreviews87, alt: "Preview 87" },
   { id: 88, src: jerseyPreviews88, alt: "Preview 88" },
   { id: 89, src: jerseyPreviews89, alt: "Preview 89" },
+  { id: 90, src: jerseyPreviews90, alt: "Preview 90" },
 ];
 
 export default jerseyPreviewsList;
